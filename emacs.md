@@ -22,11 +22,11 @@ C-x C-3 **->** split window below
 
 ## Moving
 
-                         ^ C-p  
-                         |  
-C-a <----- M-b <-- C-b <-+-> C-f --> M-f -----> C-e  
-                         |  
-                         v C-n  
+>                         ^ C-p  
+>                         |  
+>C-a <----- M-b <-- C-b <-+-> C-f --> M-f -----> C-e  
+>                         |  
+>                         v C-n  
 
 Other commands include  
 
@@ -39,10 +39,10 @@ M-> **->** bottom of buffer
 
 C-l         **->** align cursor to middle of screen  
 M-g M-g NUM **->** Go to line NUM  
+C-x C-=     **->** text size++  
+C-x C--     **->** text size--  
 
 ## Interacting with Text  
-
--------------------------------------------------------------------------------
 
 C-k     **->** Delete current line past cursor  
 M-DEL   **->** delete word to left  
@@ -63,8 +63,6 @@ C-s **->** Searching for text. Press again to see next occurance. C-g to cancel.
 
 ## When Lost  
 
--------------------------------------------------------------------------------
-
 C-g -> Cancel current command  
 C-h -> Help!  
 
@@ -74,8 +72,6 @@ C-h -> Help!
 > m      **->** see current mode  
 
 ## Commands and Miscellaneous  
-
--------------------------------------------------------------------------------
 
 M-! **->** run a command as a one-off shell process  
 M-| **->** take characters from selected region, pipes into shell command  
@@ -87,7 +83,6 @@ M-x **->** bunch of emacs commands
 > eshell -> idk similar thing  
 > modename -> switch to another mode  
 
--------------------------------------------------------------------------------
 
 ### More Emacs Resources  
 
