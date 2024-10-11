@@ -1,31 +1,33 @@
 # LaTeX  
 
+Writing, editing, compiling, and viewing latex files through Emacs. Right now using MacTex (TexLive), GUI Emacs, AUCTex, and YASnippet with YASnippet-snippets. 
 
-## Writing Latex with AUCTex  
+## Using AUCTex
 
 `C-c TAB` Read AUCTex Manual!
+`M-TAB` Will autocomplete an AUCTex macro.  
 
-> For most commands, press `TAB` or `SPC` to see available options.  
+For most commands, press `TAB` or `SPC` to see available options.  
 
-
-### Spacing
-
+### Basics
 
 `C-c C-s` Insert section.  
 `C-c C-e` Insert environment.  
 `C-c RET` Insert macro.  
 
-
-
 ### Math Mode  
 
-`C-c ~` Toggles math mode. 
+`C-c ~` Toggles math mode.  
 
 > Add `(add-hook 'LaTeX-mode-hook #'LaTeX-math-mode)` to init file to enable Math mode by default.  
 
-When in math mode, prepend ``` to keywords to write math symbols.
+When in math mode, prepend ``` to keywords to write math symbols.  
 
-> Can customize `LaTeX-math-list` to change things.
+> Can customize `LaTeX-math-list` to change the shortcuts.  
+
+`i` for ∈ (\in).  
+`E` for ∃ (\exists).  
+`A` for ∀ (\forall).  
 
 
 ### Previewing and Compiling Latex  
@@ -91,20 +93,67 @@ AUCTex has a folding mode, which hides lots of the syntax of Latex.
 `C-c C-o C-e` Hide current environment.  
 
 
+### YASnippets  
 
-## Using Latex Generally  
+I've created custom snippets for Latex.  
+
+`//` Creates `\frac{num}{denom}`  
+
+`be` Creates `\begin{env} ... \end{env}`  
+
+`{`  Creates `{...}`  
+
+`(`  Creates `(...)`  
+
+
+
+## Latex the Language  
 
 Latex has multiple modes, **paragraph mode**, **math mode**, and **LR mode**. paragraph mode is the default mode for the document environment.  
 
-### Common Environments  
+### Environments  
 
 All environments follow the syntax `\begin{NAME} ... \end{NAME}`.  
 
 `quote` Block quote.  
 
+Math mode environments 
+
 `equation` Math mode for single line, centered and with a label.  
 `gather` Math mode for multiple lines, centered.  
 `align` Math mode for multiple lines, centered on `&` for each line.  
+
+
+### Theorems  
+
+`\newtheorem{type}{display}[section]` creates a new environment named `type`, that displays with the name `display`, and is numbered automatically. The additional parameter `section` restarts the theorem counter at every new section.  
+
+> For example, `\newtheorem{corollary}{Corollary}[theorem]` creates a corollary environment whos numbering is reset after each new theorem environment is used.  
+
+When writing a theorem in the document, you can give it a name with `\begin{theorem}[name_here]`.  
+
+A `\label{name}` can be used within the theorem to give it a name, such that it can be referenced later in the document with `\ref{name}`.  
+
+Amsthm Package
+
+`\usepackage{amsthm}` Gives unnumbered theorem-like environments: remarks, comments, proofs.  
+
+
+`\newtheorem*{name}{Name}` Creates an unnumbered theorem-like environment, with amsthm installed.  
+
+`\theoremstyle{stylename}` Sets the styling for the environment defined below it.  
+
+> `remark` makes the title italicized, normal text with roman typeface.  
+> `definition` makes the title boldface, normal text roman typeface.  
+
+`\begin{proof}` Special proof environment provided by amsthm. Italicizes "*proof*" and marked the end of the proof with a QED symbol.
+
+> You can replace the QED symbol with `\renewcommand\qedsymbol{new-symbol}`. 
+> A common new symbol is `$\blacksquares$` or `QED`.
+
+
+### Packages
+
 
 
 ### Useful Commands
@@ -112,6 +161,20 @@ All environments follow the syntax `\begin{NAME} ... \end{NAME}`.
 `\noindent` Stops automatic indentation.  
 `\verb` (verbatim) Escapes any Latex metacharacters.  
 `\texttt` Typewriter font.  
+
+To create your own commands, use the following
+
+`\newcommand{new-command}{latex-command}` defines a new command, and makes an error if it is already defined.  
+`\renewcommand{new-command}{latex-command}` redefines a predefined command, and makes an error if it is not yet defined.  
+`\providecommand{new-command}{latex-command}` defines a new command if it isn't already defined.  
+ 
+
+### Spacing
+
+TODO
+
+`\\[add]` Newline. Increase spacing by `add` amount (2 pt, 3 ex).
+
 
 ### Math Mode  
 
@@ -127,7 +190,7 @@ For multiple lines of equations, use the following modes.
 
 `\begin{align} ... \end{align}` Aligns each equation based on where you place a `&` symbol on the line.  
 
-Here are some common commands.
+Here are some common math symbols.
 
 `\frac{x}{y}` Fraction.  
 `\dfrac{x}{y}` In-line Fraction.  
@@ -136,7 +199,9 @@ Here are some common commands.
 `\sum_{n=1}^\infty` Summation from n=1 to infinity.  
 
 
-[symbols-manual](https://www.overleaf.com/learn/latex/List_of_Greek_letters_and_math_symbols) contains a list of all math symbols and greek letters.  
+[math-manual](https://www.overleaf.com/learn/latex/List_of_Greek_letters_and_math_symbols) contains a list of math symbols and greek letters.  
+
+[symbols-manual](https://mirror.las.iastate.edu/tex-archive/info/symbols/comprehensive/symbols-a4.pdf) for a full list of Latex's symbols.  
 
 
 
@@ -207,3 +272,6 @@ A **package** extends the functionality of the language. Packages are applied to
 
 
 Resources on LaTex in Emacs: [tex-mode-manual](https://www.gnu.org/software/emacs/manual/html_node/emacs/TeX-Mode.html "GNU Tex Mode Manual").  
+
+
+[^1]: ![AUCTex-reference-card](ftp://ftp.gnu.org/gnu/auctex/11.89-extra/tex-ref.pdf "AUCTex Reference Card")

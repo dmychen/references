@@ -1,12 +1,20 @@
 # Linux Reference  
 
-## Using Linux Commands  
+## Linux Commands  
+
+General commands:
 
 `man [command]` Documentation for any command.  
 
-> type '/' and words to search while in a manual.  
-> press `n` next, `N` previous, `h` help, `q` quit  
+> type '/' to search while in a manual.  
+> press **n** next, **N** previous, **h** help, **q** quit to navigate.  
 
+
+`echo [options] [string]` Prints the string in command line.  
+
+> `-e` allows for **\n** as newline.  
+
+`which [program]` locate the program file for a command. 
 
 ### Directories  
 
@@ -19,8 +27,13 @@
 
 `ls [directory]` List directory contents.  
 
-> -l for long format.  
-> -a for list all.  
+> `-l` for long format.  
+> `-a` to list all.  
+> `-R` for recursive.  
+> `-t` to show time and order by time.  
+> `-d` to only show directories.  
+> `-i` to show each file's unique identifier.  
+
 
 
 `cd [directory]` Change directory.  
@@ -32,7 +45,11 @@
 
 `touch FILE` Create a file.  
 
-`rm [-r] FILE` Remove a file. `-r` to delete a directory.  
+`rm [opt] FILE` Remove a file.  
+
+> `-r` to delete a directory.  
+> Not safe removal, can't recover.  
+> Don't do: `rm -rf ~/`
 
 `cp SRC DEST` Copy files. `-r` for directories.  
 
@@ -52,9 +69,13 @@ File permissions are important.
 
 `chmod [options] mode[,mode] file1[file2...]` Change user permissions to a file.
 
-> How permissions work  
+> How permissions work:  
 >   
-> Shown as 10 bits, 1st bit represents a directory, then three groups of three representing permissions for different groups.  
+> 10 bits:
+> 1st bit -> **-** for file, **d** for directory, **l** for symbolic links.
+> 3 groups of 3 bits -> **r** read permission, **w** write permission, **x** execute permission, **-** permission denied.  
+>   
+> The three groups represent, in order:  
 >   
 > owner (u)  
 > group that owns the file (g)  
@@ -62,7 +83,8 @@ File permissions are important.
 >   
 > \+ to add permissions, \- to remove, = to set permissions.  
 >   
-> ie: drw-rw-x--- -> chmod u+x filename -> drwxrw-
+> ie: `-rwxrw-r-- filename` -> normal file, user has read/write/execute permissions, group has read/write permissions, others has read permissions.  
+> `chmod g+x filename` -> now the permissions look like this: -rwxrwxr--  
 
 
 
@@ -78,6 +100,8 @@ Here are a few commands relating to file contents. All these commands output the
 > `-n` display line numbers  
 >   
 > More information on regular expressions in regex.md.  
+
+`sed s/old/new/g] filename` Replace patterns matching **old** with **new** in **filename**.
 
 
 `sort [options] FILE` Sorts a file alphabetically by line. Number before uppercase before lowercase.  
@@ -98,35 +122,31 @@ Here are a few commands relating to file contents. All these commands output the
 
 `comm [options] FILE1 FILE2` Compares two lexically sorted files line by line. Generates 3 column output: lines unique to FILE1, unique to FILE2, common to both files.  
 
-> `-1` suppress column 1 (don't display lines unique to FILE1).  
+> **-1** suppress column 1 (don't display lines unique to FILE1).  
 > The same applies to -2 and -3.  
 > `-i` ignores case.  
 > `-check-order` check if input is sorted.  
 > `-nocheck-order` ignores if files are sorted.  
 
 
+`ln [source] [target]` Creates a new directory entry (linked file) for the file **source**.
+
+> **target** file has the same file modes as **source** file. A link points to the original copy, either via a hard link or a symbolic link.  
+> By default, `ln` makes hard links. Hard links are the indistinguishable from the original file.  
+> `-s` creates a symbolic link. Symbolic links contain the name of the file that it points to. 
+
+
+### Processes
+
+`ps -u` Displays processes owned by the specified user.
+`ps -e` Shows all processes on the system.
+`ps aux` Common combination of options that provides a comprehensive process listing.
+
+
 
 ## Bash Scripts  
 
-### Basic Bash functionality  
-
-Can write and execute bash commands in a **bash script**, not just in the command line. Bash scripts have the form `NAME.sh`. The script can be run with `bash NAME.sh`.  
-
-We can **create a variable** `NAME=[value]`, and access the value of that variable, `$(NAME)`. The output of a command can be stored in a variable `var=$([cmd])`.  
-
-
-**Standard input** can be read into a variable NAME with `read NAME`. It will prompt for input, which will be stored in NAME.  
-
-Input and output from files can be **redirected** as follows:  
-
-`[cmd] < file` input from a file.  
-`[cmd] > file` or `[cmd] 1> file` standard output to a file.  
-`[cmd] 2> file` standard error to a file.  
-`[cmd] >> file` append to a file (no overwrite).  
-
-
-**Piping** the stdout of [cmd1] as the stdin of [cmd2] can be done with `[cmd1] | [cmd2]`.  
-
+We can write and execute bash commands in a **bash script**, not just in the command line. Bash scripts have the form **NAME.sh**. The script can be run with `bash NAME.sh`.  
 
 ### Writing a Bash Script  
 
@@ -134,11 +154,75 @@ Input and output from files can be **redirected** as follows:
 	# This is a comment  
 	echo Hello World  
 
-Starting with` #!/bin/sh` tells Unix to execute a file `file.sh` via `/bin/sh`.  
-Comments are written with `#` in Bash scripting.
+Starting with` #!/bin/sh` tells Unix to execute a file **file.sh** via **/bin/sh**.  
+Comments are written with **#** in Bash scripting.  
 	
-> The `#` on the first line is treated specially, not as a comment. It tells Unix that disregarding what shell you're using (csh, ksh, etc), the file should be interpreted by the Bourne shell. Other scripts work similarly, ie `#!/usr/bin/perl` for a Perl script.  
+> The **#** on the first line is treated specially, not as a comment. It tells Unix that disregarding what shell you're using (csh, ksh, etc), the file should be interpreted by the Bourne shell. Other scripts work similarly, ie `#!/usr/bin/perl` for a Perl script.  
 
+
+Another note: the shell parses arguments before passing them to the program being called. For example in `echo *`, ***** is expanded to reference all files in the current directory before being passed to echo.  
+
+
+### Variables  
+
+`VAR=value` Assign a variable with value.  
+
+> We can also assign the output of a command to a variable, `VAR=[cmd]`.  
+> Remember not to put spaces around the **=**.  
+
+
+`$VAR` Accesses the value stored in **VAR**.  
+`read VAR` Reads a line from stdin into **VAR**.  
+
+
+There is no type checking in bash scripts, everything is stored as a string.  
+
+Reading an undeclared variable results in an empty string, with *no warnings or errors*.  
+
+We can enclose a variable in curly braces `${VAR}`. This makes it clear where the variable name ends.
+
+> For example `touch "${USER_NAME}_file"` works, while `touch "$USER_NAME_file"` would not, given a variable **$USER_NAME**.  
+
+Accessing arguments for a script:
+
+`$[num]` Accesses arg[num].
+
+> `${2}` accesses arg2, `${10}` accesses arg10
+
+`$@` Represents all arguments passed to a script or function.
+
+Another note. 
+
+`$$` Current processor ID
+
+
+### Redirection   
+
+Input and output from files can be **redirected** as follows:  
+
+`[cmd] < file` input from a file.  
+`[cmd] > file` or `[cmd] 1> file` standard output to a file.  
+`[cmd] 2> file` standard error to a file.  
+`[cmd] >> file` append to a file (no overwrite).  
+`[cmd1] | [cmd2]` "pipes" the stdout of [cmd1] as the stdin of [cmd2].   
+
+
+### Scoping  
+
+When a **file.sh** is ran from our interactive shell, a new shell is created to run the script.  
+
+> Our script **file.sh** will not inherit values from variables in our interactive shell.  
+
+`export VAR` Allows another program, such as our script, to inherit that variable.  
+
+`. ./file.sh` Sources the script, which basically runs **file.sh** within our own shell.  
+
+
+### Loops  
+
+idk
+
+-------------------------------------------------------------------------------
 
 More bash resources here:  
 
@@ -149,6 +233,14 @@ More bash resources here:
 
 
 ## Understanding Linux's Structure  
+
+### The Shell  
+
+The shell is itself a program, a file executed by the operating system.
+
+**sh** is the predecessor to **bash** 
+
+
 
 Linux is a family of "open-source unix-like operating systems" based on linux kernel.  
 
