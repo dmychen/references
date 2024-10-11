@@ -4,16 +4,16 @@
 
 To get out of a pickle...
 
-`C-x C-c`  Close emacs  
-`C-g` -> Cancel current command  
-`C-h` -> Help! If it opens a new buffer, you can close it by pressing **q** while focused on it.  
+`C-x C-c`  Close emacs.  
+`C-g` Cancel current command.  
+`C-h` Help!  
 
->  NOTE:  
 >  After C-h, you can type one of the following:  
 > `b`       list keybindings  
 > `k KEYS`  lists information about what the KEYS you just pressed do  
 > `m`       see current mode  
 
+Another note: whenever Emacs automatically opens a buffer for you, you can close that buffer by focusing on it with `C-x o` and pressing **q** to close it.
 
 ### Files and Buffers  
 
@@ -30,7 +30,7 @@ Everything in Emacs is loaded in a **buffer**, which disappears when Emacs is cl
 `C-x d`    **Open a directory**  (in *dired mode*)  
 `C-x C-b`  Open a directory of the current buffers in emacs.  
 
-> When viewing a directory, press `d` to mark a file for deletion, press `x` to confirm deletion.  
+> When viewing a directory, press **d** to mark a file for deletion, press **x** to confirm deletion.  
 
 
 `C-x b`    **open a buffer** (default last buffer)  
@@ -41,15 +41,15 @@ Everything in Emacs is loaded in a **buffer**, which disappears when Emacs is cl
 
 ### Frames (Windows)  
 
-Emacs calls different windows "frames". Each frame contains a buffer, multiple frames can contain the same buffer, for example if you want to access different parts of a long file.  
+Emacs calls different windows "frames". Each frame contains a buffer, and multiple frames can contain the same buffer. This can be useful if you want to access different parts of a long file at the same time.  
 
-`C-x o`    change focuse to next frame  
-`C-x C-1`  close all frames but current one  
-`C-x C-0`  close current frame  
-`C-x C-2`  split frame to right  
-`C-x C-3`  split frame below  
+`C-x o`    change focus to the next frame.  
+`C-x C-1`  close all frames but the current one.  
+`C-x C-0`  close current frame.  
+`C-x C-2`  split frame to right.  
+`C-x C-3`  split frame below.  
 
-> `q` will close a frame that Emacs automatically opened for you, for example when you open a directory with `C-x C-f RET` or look up a command with `C-h m`.  
+> **q** will close a frame that Emacs automatically opened for you, if you are focused on that buffer. Useful for example when you open a directory with `C-x C-f RET` or look up a command with `C-h m`.  
 
 
 ### Moving Around A Buffer
@@ -90,64 +90,85 @@ Some other commands:
 
 ### Interacting with Text  
 
-Deletion:
+**Deletion**:  
 
 `C-k`      delete current line, past cursor  
 `M-DEL`    delete word to left  
 `M-d`      delete word to right  
 `C-x DEL`  delete sentence to left  
 
-Setting Marks:
+**Spacing**:  
+  
+`C-x TAB`  indent lines of text within the region (see "mark" for more info).  
+`M-^`      append current line to previous line.  
 
-`C-SPC`    Set mark  
-`C-x C-x`  exchange mark with cursor  
+**Searching**:  
 
-> Set a mark then move cursor to select a portion of text!  
-> Press C-g to deselect (but keep mark)  
-> C-SPC C-SPC will set mark and push it onto the mark ring... press C-u C-SPC to restore  
+> Emacs searches for occurrences of a string starting at where the pointer is. Pressing the search button again will move to the next match. Once it hits the end of the buffer, it will start the search from the top.
 
-
-`C-x TAB`  indent lines of text below cursor, up to paragraph end  
-`M-^`     append current line to previous line  
-
-Searching:
-
-`C-s`  Search for a text string.  
+`C-s`  **Search** for a text string.  
 `C-r`  Search in reverse.  
 `C-M-s` Search by *regexp*.  
 
 > Press `C-s` again to see next occurrence. Press `RET` to place cursor at the current search result. `C-g` to cancel search.   
 
-`M-%` Find and replace. 
+`M-%` **Find and replace**. 
 `C-M-%` Find and replace a *regexp*. Same applies.  
 `M-x replace-string` Replaces all instances of a string in one go.  
 
-> For each occurrence, press:  
-> `y/SPC` Replace.  
-> `n/DEL` Skip.  
-> `^` Go to position of previous occurrence.  
-> `u` Undo last replacement, and go back to that point.  
-> `U` Undo all replacements, and go back to start.  
-> `!`to replace remaining occurrences.  
+> For each occurrence, press  
+> `y` or `SPC` to replace.  
+> `n` or `DEL` to skip.  
+> `^` to go to previous occurrence.  
+> `u` to undo the last replacement, and go back to that point.  
+> `U` to undo all replacements, and go back to the start.  
+> `!` to replace remaining occurrences.  
 
 
+**Marks**:  
 
-## Commands, Shell, and Customization in EMACS  
+Emacs has something called a **mark**, which is a saved location in the buffer. Everything between this saved mark and your cursor is called the **region**, which basically means a selected chunk of text.  
+
+The mark allows for more advanced movement and manipulation of text. You can jump to the position of the mark at any time, and you can execute commands on the region between the mark and your cursor.
+
+> For example: to copy a region of text, you can place a mark at the beginning of what you want to select, move your cursor to the end of what you want to select, and press the copy key. This will copy everything from the mark to your cursor.  
+
+`C-SPC`    Set mark. This sets a mark at your current location.  
+
+> If you move your cursor immediately after setting a mark, the region between the mark and your cursor will be highlighted. If you do a non-movement operation, the region will no longer be highlighted, but doesn't disappear. You can also press `C-g` to unhighlight.  
+
+`C-x C-x`  exchange mark with cursor.  
+
+> This allows you to jump wherever your mark is. Useful if there's a place in the file you want to repeatedly go back to.
+
+`C-SPC C-SPC` Set's mark and push it onto the mark ring.
+
+> Kinda confusing, but this creates a mark and then deactivates it. The mark ring is basically a history of your previous marks, which you can still access.
+
+`C-u C-SPC` Restore "pop" mark off of the mark ring.  
+
+> Allows you to use previous marks. idk.
+
+The mark is really useful for copying and cutting text. It's also great if you need to indent multiple lines. You can use `C-x TAB` to indent everything in the region. 
+
+## Commands, Shell, and Customization  
 
 ### Commands
  
-The commands we use in Emacs, including all the ones above, are tied to a name. Not all commands are necessarily tied to a keyboard shortcut, so all commands in Emacs can be run by calling their name.  
+The **commands** we use in Emacs, including all keyboard shortcuts above, are each tied to a identifying name. Not all commands necessarily have a keyboard shortcut. All commands in Emacs can be run by calling their name.  
 
 `M-x [command]` Calls a command by its name.  
 
-Emacs also has internal variables, which we sometimes manipulate when changing settings or customize Emacs.  
+You can search for some of the commmands emacs has with `C-h a` or see documentation for a specific command with `C-h x`
+
+
+Emacs also has internal **variables**, which we sometimes manipulate when changing settings or customize Emacs.  
 
 `M-x describe-variable` Accesses a variable's function and value.  
 
 > Also accessed through `C-h v`.  
 
-
-Emacs can run a shell, without needing to go to terminal.  
+Emacs can run a **shell**, without needing to go to terminal.  
 
 `M-x shell` Opens shell in emacs.  
 `M-x eshell` idk very similar.  

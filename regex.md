@@ -4,23 +4,22 @@
 
 A *regular expression* (regex) is a pattern that describes a set of strings. Can use various operators to combine smaller expressions.   
 
-We will be using `grep`, which can use three different syntaxes.  
+We will mostly be using `grep`, which can use three different syntaxes.  
 
 > ERE: extended regular expression.  
 > BRE: basic regular expression.  
 > PCRE: perl compatible regular expression.  
 
-
-### Grep
-
 `grep PATTERN FILE` Searches FILE with the regular expression PATTERN.   
 
 > `-E` Forces ERE to be used.  
 
+Other commands that use regex: 
+
 `sed s/PATTERN1/PATTERN2/g`  idk its confusing. Basically find and replace.
 
 
-### Metacharacters  
+### Writing Regex  
 
 ERE uses metacharacters to match patterns.  
 
@@ -69,17 +68,14 @@ ERE uses metacharacters to match patterns.
 > `[x-y]` makes the expression match any character ranging from x to y.  
 
 
-`[pattern1]|[pattern2]` Or operator. Matches either **pattern1** or **pattern2**.  
+`[pattern1]|[pattern2]` Infix operator. A way of matching two expressions together, that matches strings that matches either  **pattern1** or **pattern2**.  
 
 `[pattern](?=foo)` Positive lookahead. Only matches **pattern** if it's followed by **foo**.  
 
 `(?<=foo)[pattern]` Negative lookahead. Only matches **pattern** if it comes after **foo**.  
 
 
-
 Multiple regular expressions can be concatenated. Any two concatenated expressions will match strings that is made up of two substrings that respectively match the concatenated expressions.  
-
-Multiple regular expressions can be joined together with the `|` infix operator. The resulting expression matches any string that matches either of the expressions.  
 
 The order of precedence in regular expressions is as follows: repetition > concatenation > alternation. Use `()` to override precedence rules and form a subexpression.  
 
