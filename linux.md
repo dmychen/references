@@ -1,3 +1,23 @@
+<!-- markdown-toc start - Don't edit this section. Run M-x markdown-toc-refresh-toc -->
+**Table of Contents**
+
+- [Linux Reference  ](#linux-reference)
+    - [Linux Commands  ](#linux-commands)
+        - [Directories  ](#directories)
+        - [Files  ](#files)
+        - [Manipulating Files  ](#manipulating-files)
+        - [Processes](#processes)
+    - [Bash Scripts  ](#bash-scripts)
+        - [Writing a Bash Script  ](#writing-a-bash-script)
+        - [Variables  ](#variables)
+        - [Redirection   ](#redirection)
+        - [Scoping  ](#scoping)
+        - [Loops  ](#loops)
+    - [Understanding Linux's Structure  ](#understanding-linuxs-structure)
+        - [The Shell  ](#the-shell)
+
+<!-- markdown-toc end -->
+
 # Linux Reference  
 
 ## Linux Commands  

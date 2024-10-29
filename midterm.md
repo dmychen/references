@@ -1,3 +1,59 @@
+# Midterm Reference
+
+- [Python](#python){#toc-python}
+  -   [Syntax](#syntax){#toc-syntax}
+	-   [File I/O](#file-io){#toc-file-io}
+	-   [Data Types](#data-types){#toc-data-types}
+	-   [Control Flow](#control-flow){#toc-control-flow}
+	-   [Functions](#functions){#toc-functions}
+	-   [Generators
+		(Yield)](#generators-yield){#toc-generators-yield}
+	-   [Classes (OOP)](#classes-oop){#toc-classes-oop}
+	-   [Miscellaneous](#miscellaneous){#toc-miscellaneous}
+  -   [Modules and
+	  Packages](#modules-and-packages){#toc-modules-and-packages}
+	-   [sys](#sys){#toc-sys}
+	-   [random](#random){#toc-random}
+	-   [argparse](#argparse){#toc-argparse}
+  -   [Code examples](#code-examples){#toc-code-examples}
+- [Linux and Files](#linux-and-files){#toc-linux-and-files}
+  -   [Piping and
+	  Redirection](#piping-and-redirection){#toc-piping-and-redirection}
+  -   [Important
+	  Commands](#important-commands){#toc-important-commands}
+  -   [Complex Commands](#complex-commands){#toc-complex-commands}
+  -   [Linking](#linking){#toc-linking}
+  -   [Processes](#processes){#toc-processes}
+- [Bash Scripting](#bash-scripting){#toc-bash-scripting}
+- [Elisp](#elisp){#toc-elisp}
+  -   [Construction of
+	  Emacs](#construction-of-emacs){#toc-construction-of-emacs}
+  -   [Basic Syntax](#basic-syntax){#toc-basic-syntax}
+- [Networking](#networking){#toc-networking}
+  -   [The birth of the
+	  internet.](#the-birth-of-the-internet.){#toc-the-birth-of-the-internet.}
+    -   [An Analog Version: Telephone
+		Networks](#an-analog-version-telephone-networks){#toc-an-analog-version-telephone-networks}
+	-   [ARPANET: The First Internet @ Boelter
+		3420](#arpanet-the-first-internet-boelter-3420){#toc-arpanet-the-first-internet-boelter-3420}
+  - [Modern Networking](#modern-networking){#toc-modern-networking}
+	-   [Internet Protocol
+		Suite](#internet-protocol-suite){#toc-internet-protocol-suite}
+	-   [**HTTP (Hypertext Transfer
+		Protocol)**](#http-hypertext-transfer-protocol){#toc-http-hypertext-transfer-protocol}
+	-   [Browser
+		Rendering](#browser-rendering){#toc-browser-rendering}
+	-   [Code Examples](#code-examples-1){#toc-code-examples-1}
+  - [Application
+	  Styles](#application-styles){#toc-application-styles}
+  - [Midterm Tips:](#midterm-tips){#toc-midterm-tips}
+	-   [Files, Editing,
+		Shell](#files-editing-shell){#toc-files-editing-shell}
+	-   [Commands and Basic
+		Scripting:](#commands-and-basic-scripting){#toc-commands-and-basic-scripting}
+	-   [Python](#python-1){#toc-python-1}
+	-   [Networking](#networking-1){#toc-networking-1}
+
 # Python
 
 ## Syntax
@@ -82,9 +138,9 @@ Immutable types: Integers, Floats, Strings, Tuples, Bools, Frozensets.
 `function_name(arguments)`	Calls the function with the given arguments.  
 `lambda parameters: expression`	Creates an anonymous function (lambda function).  
 
-    # Anonymous Function Example  
+    \# Anonymous Function Example  
     square = lambda x: x * x  
-    print(square(5))  # Output: 25  
+    print(square(5))  \# Output: 25  
 
 
 ### Generators (Yield)
@@ -142,14 +198,14 @@ Special Methods: (Dunder Methods)
 #### Class Example
 
 	class MyClass:
-		class_attribute = 10 # An attribute shared among instances of this class
+		class_attribute = 10 \# An attribute shared among instances of this class
 
 		def __init__(self, name):
-			self.name = name # Each instance has a unique attribute
+			self.name = name \# Each instance has a unique attribute
 
-	print(obj.__dict__)  # Output: {'name': 'Alice'}
+	print(obj.__dict__)  \# Output: {'name': 'Alice'}
 	
-	print(MyClass.__dict__) # {'__module__': '__main__', 'class_attribute': 10, '__init__': <function MyClass.__init__ at 0x7f8b23459ee0>}
+	print(MyClass.__dict__) \# {'__module__': '__main__', 'class_attribute': 10, '__init__': <function MyClass.__init__ at 0x7f8b23459ee0>}
 
 
 ### Miscellaneous
@@ -275,52 +331,52 @@ Generates random numbers and random operations. Import with `python import rando
 
 	import random, sys, argparse
 
-	# --input-range should have the form [int]-[int]
+	\# --input-range should have the form [int]-[int]
 	def format_range(str):
-		# split string around '-'
+		\# split string around '-'
 		left, right = str.split('-', 1)
-		# check if the string is an int, and range is valid
+		\# check if the string is an int, and range is valid
 		try:
 			left = int(left)
 			right = int(right)
 			if left > right:
 				raise argparse.ArgumentTypeError(f"Invalid range format: {left}-{right}")
 			return left, right
-		# othewise throw a type/value error
+		\# othewise throw a type/value error
 		except (ValueError, TypeError):
 			raise argparse.ArgumentTypeError(f"Invalid range format: {left}-{right}")
 
 	def main():
-		# Help messages
+		\# Help messages
 		usage_msg = """%(prog)s [OPTION]... FILE
 	Outputs a random permutation of its input lines"""
 		echo_help_msg = ""
 
-		# Create an argument parser.
+		\# Create an argument parser.
 		parser = argparse.ArgumentParser(usage=usage_msg)
-		# Create arguments
+		\# Create arguments
 		parser.add_argument('-e', '--echo', action='store', nargs='*', dest='echo', help=echo_help_msg)
 		parser.add_argument('-i', '--input-range', action='store', type=format_range, nargs=1, dest='range', help="-i")
 		parser.add_argument('-n', '--head-count', action='store', type=int, nargs=1, dest='count', help="-n")
 		parser.add_argument('-r', '--repeat', action='store_true', dest='repeat', help="-r")
 		parser.add_argument('filename', type=str, nargs='?', default='-', help="The name of the input file")
-		# Read parsed arguments into args
+		\# Read parsed arguments into args
 		args = parser.parse_args(sys.argv[1:])
 
-		# create a list with appropriate lines from the input
+		\# create a list with appropriate lines from the input
 		lines = []
-		# if -i, set list to range of numbers
+		\# if -i, set list to range of numbers
 		if args.range is not None:
 			start, end = args.range[0]
 			numbers = list(range(start, end+1))
 			lines = [str(num) + '\n' for num in numbers]
-		# or if -e, set list to CLI arguments
+		\# or if -e, set list to CLI arguments
 		elif args.echo is not None:
 			lines = [line + '\n' for line in args.echo]
-		# or if no input file, read from stdin
+		\# or if no input file, read from stdin
 		elif args.filename == '-':
 			lines = [line for line in sys.stdin]
-		# otherwise read from an input file
+		\# otherwise read from an input file
 		else:
 		   with open(args.filename, 'r') as file:
 				lines = file.readlines()
@@ -329,23 +385,23 @@ Generates random numbers and random operations. Import with `python import rando
 		if args.count is not None:
 			count = args.count[0]
 
-		# if -r, we print from lines with replacement
+		\# if -r, we print from lines with replacement
 		if args.repeat:
 			if lines:
 				while count != 0:
 					sys.stdout.write(random.choice(lines))
 					count = count - 1
 
-		# otherwise shuffle lines and print
+		\# otherwise shuffle lines and print
 		new_lines = []
 		for line in lines:
 			if count == 0:
 				break
 			new_lines.append(line)
 			count = count - 1
-			# randomly shuffle the lines
+			\# randomly shuffle the lines
 		random.shuffle(new_lines)
-			# output lines in list
+			\# output lines in list
 		for line in new_lines:
 			s = str(line)
 			sys.stdout.write(s)
@@ -527,7 +583,7 @@ Exit Status: The exit status of a pipeline is the exit status of the last comman
 
 ### Complex Commands
 
-#### **`find [path...] [expression]`** 
+**`find [path...] [expression]`** 
 
 Recursively descends the directory tree for each path listed, evaluating an expression (composed of the “primaries” and “operands” listed below) in terms of each file in the tree.  
 
@@ -565,8 +621,7 @@ Recursively descends the directory tree for each path listed, evaluating an expr
 - `-execdir <command> {}`: Similar to `-exec`, but runs the command from the directory where the file was found.  
 - `-delete`: Delete the found files.  
   - Example: `find . -type f -name "*.tmp" -delete`  
-
-#### **`sed [options] 'script' [input_file]`** 
+	**`sed [options] 'script' [input_file]`** 
 
 Text substitution, deletion, insertion, transformation.  
 
@@ -574,7 +629,7 @@ Text substitution, deletion, insertion, transformation.
 - `e`: Specify a command to be executed.  
   - `sed -e 's/foo/bar/g' -e 's/baz/qux/g' file.txt`  
 - i[SUFFIX]: Edit files in place; if a suffix is provided, backup files are created.  
-  - `sed -i.bak 's/old/new/g' file.txt  # Creates file.txt.bak`  
+  - `sed -i.bak 's/old/new/g' file.txt  \# Creates file.txt.bak`  
 - n: Suppress automatic output; only output lines explicitly specified with p.  
 - r or -E: Use extended regular expressions.  
   - `sed -E 's/(foo|bar)/baz/g' file.txt`  
@@ -593,7 +648,7 @@ Text substitution, deletion, insertion, transformation.
 - **`c\text`:** Replace the current line with text.
   - `sed '/pattern/c\New Line' file.txt`  
   
-#### **`sort [input_file]`**
+**`sort [input_file]`**
 
 Sort lines in a text file.  
 
@@ -603,7 +658,7 @@ Sort lines in a text file.
 - `-u`: suppress repeated lines.  
 - `-o FILE`: Write output to a file instead of stdout  
 
-#### **`tr [options] SET1 SET2`**
+**`tr [options] SET1 SET2`**
 
 Used to translate or delete characters.  
 
@@ -612,13 +667,13 @@ Used to translate or delete characters.
 - `-c`: Complement the character set.  
 - Example: tr 'a-z' 'A-Z' < input.txt > output.txt  z
 
-#### **`comm [options] file1 file2`**
+**`comm [options] file1 file2`**
 
 Compare two sorted files line by line.  
 
 - `-1`, `-2`, `-3`: Suppress lines unique to file1, file2, or both.  
 
-#### **`awk 'pattern { action }' file`**
+**`awk 'pattern { action }' file`**
 
 Pattern scanning and processing. Good for workign with structured data.  
 
@@ -914,7 +969,7 @@ Hooks and Advice: Elisp supports hooks (functions run at certain points) and adv
 
 Commonly known as the TCP/IP model. A combination of protocols, governing operation of the internet. Structured in layers that each serve a purpose.  
 
-#### 1. **Link Layer (Network Access Layer)**  
+#### Link Layer (Network Access Layer)  
 - **Purpose**: Facilitates communication between adjacent nodes on the same local network.   
 - **Function**: Handles physical transmission of data over network hardware.  
   - Physical Addressing: Uses MAC (Media Access Control) addresses to identify devices on the local network.  
@@ -926,7 +981,7 @@ Commonly known as the TCP/IP model. A combination of protocols, governing operat
   - PPP (Point-to-Point Protocol): Used for direct connections between two nodes, often over serial links.  
 - **Example**: A computer connecting to a router via Ethernet uses MAC addresses to identify itself on the local network.  
 
-#### 2. **Internet Layer**  
+#### Internet Layer  
 - **Purpose**: Manages packet routing through the network, ensuring data is sent to the correct destination.  
 - **Key Protocols**:  
   - **IPv4**: (Internet Protocol version 4) The most widely used version, providing an addressing scheme with 32-bit addresses (e.g., `192.168.1.1`).  
@@ -948,7 +1003,7 @@ Commonly known as the TCP/IP model. A combination of protocols, governing operat
 <img src="https://upload.wikimedia.org/wikipedia/commons/6/60/IPv4_Packet-en.svg" alt="IPv4 Diagram" style="display:block;margin-left:auto;margin-right:auto;width:60%;height:auto;">
 
 
-#### **3. Transport Layer (Host to Host Layer)**  
+#### Transport Layer (Host to Host Layer)  
 - **Purpose**: Ensures complete data transfer between hosts, providing reliable or unreliable communication based on the protocol used.  
 - **Functions**: Controls flow of data and reliable delivery.  
   - Segmentation and reassembly of data.  
@@ -967,7 +1022,7 @@ Commonly known as the TCP/IP model. A combination of protocols, governing operat
 	- Thin layer over IP.  
 	- **Example**: Streaming video uses UDP because timely delivery is more critical than perfect accuracy; lost packets are acceptable.  
 
-#### 4. **Application Layer**
+#### Application Layer
 - **Purpose**: Interfaces directly with end-user applications, providing protocols for data exchange over the network. Assuming we can send reliable data, provides the interface for applications to access network services.  
 - **Function**: Application-specific formatting and presentation. Session management. Interface with OS and applications.  
 - **Key Protocols**:  
@@ -980,7 +1035,7 @@ Commonly known as the TCP/IP model. A combination of protocols, governing operat
  
 The Internet Protocol Suite is essential for ensuring that data is transmitted efficiently and accurately across the Internet, utilizing a layered approach to handle various aspects of networking. Each layer has specific protocols designed to address unique challenges in communication, enabling the seamless functioning of modern Internet services.  
  
-### **HTTP (Hypertext Transfer Protocol)**  
+### HTTP (Hypertext Transfer Protocol)  
 
 An Application Layer Protocol!  
 
