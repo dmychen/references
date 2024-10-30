@@ -1,58 +1,70 @@
 # Midterm Reference
 
-- [Python](#python){#toc-python}
-  -   [Syntax](#syntax){#toc-syntax}
-	-   [File I/O](#file-io){#toc-file-io}
-	-   [Data Types](#data-types){#toc-data-types}
-	-   [Control Flow](#control-flow){#toc-control-flow}
-	-   [Functions](#functions){#toc-functions}
-	-   [Generators
-		(Yield)](#generators-yield){#toc-generators-yield}
-	-   [Classes (OOP)](#classes-oop){#toc-classes-oop}
-	-   [Miscellaneous](#miscellaneous){#toc-miscellaneous}
-  -   [Modules and
-	  Packages](#modules-and-packages){#toc-modules-and-packages}
-	-   [sys](#sys){#toc-sys}
-	-   [random](#random){#toc-random}
-	-   [argparse](#argparse){#toc-argparse}
-  -   [Code examples](#code-examples){#toc-code-examples}
-- [Linux and Files](#linux-and-files){#toc-linux-and-files}
-  -   [Piping and
-	  Redirection](#piping-and-redirection){#toc-piping-and-redirection}
-  -   [Important
-	  Commands](#important-commands){#toc-important-commands}
-  -   [Complex Commands](#complex-commands){#toc-complex-commands}
-  -   [Linking](#linking){#toc-linking}
-  -   [Processes](#processes){#toc-processes}
-- [Bash Scripting](#bash-scripting){#toc-bash-scripting}
-- [Elisp](#elisp){#toc-elisp}
-  -   [Construction of
-	  Emacs](#construction-of-emacs){#toc-construction-of-emacs}
-  -   [Basic Syntax](#basic-syntax){#toc-basic-syntax}
-- [Networking](#networking){#toc-networking}
-  -   [The birth of the
-	  internet.](#the-birth-of-the-internet.){#toc-the-birth-of-the-internet.}
-    -   [An Analog Version: Telephone
-		Networks](#an-analog-version-telephone-networks){#toc-an-analog-version-telephone-networks}
-	-   [ARPANET: The First Internet @ Boelter
-		3420](#arpanet-the-first-internet-boelter-3420){#toc-arpanet-the-first-internet-boelter-3420}
-  - [Modern Networking](#modern-networking){#toc-modern-networking}
-	-   [Internet Protocol
-		Suite](#internet-protocol-suite){#toc-internet-protocol-suite}
-	-   [**HTTP (Hypertext Transfer
-		Protocol)**](#http-hypertext-transfer-protocol){#toc-http-hypertext-transfer-protocol}
-	-   [Browser
-		Rendering](#browser-rendering){#toc-browser-rendering}
-	-   [Code Examples](#code-examples-1){#toc-code-examples-1}
-  - [Application
-	  Styles](#application-styles){#toc-application-styles}
-  - [Midterm Tips:](#midterm-tips){#toc-midterm-tips}
-	-   [Files, Editing,
-		Shell](#files-editing-shell){#toc-files-editing-shell}
-	-   [Commands and Basic
-		Scripting:](#commands-and-basic-scripting){#toc-commands-and-basic-scripting}
-	-   [Python](#python-1){#toc-python-1}
-	-   [Networking](#networking-1){#toc-networking-1}
+### TABLE OF CONTENTS  
+
+-   [Midterm Reference](#midterm-reference){#toc-midterm-reference}
+-   [Python](#python){#toc-python}
+    -   [Syntax](#syntax){#toc-syntax}
+        -   [File I/O](#file-io){#toc-file-io}
+        -   [Data Types](#data-types){#toc-data-types}
+        -   [Control Flow](#control-flow){#toc-control-flow}
+        -   [Functions](#functions){#toc-functions}
+        -   [Generators
+            (Yield)](#generators-yield){#toc-generators-yield}
+        -   [Classes (OOP)](#classes-oop){#toc-classes-oop}
+        -   [Miscellaneous](#miscellaneous){#toc-miscellaneous}
+    -   [Modules and
+        Packages](#modules-and-packages){#toc-modules-and-packages}
+        -   [sys](#sys){#toc-sys}
+        -   [random](#random){#toc-random}
+        -   [argparse](#argparse){#toc-argparse}
+    -   [Code examples](#code-examples){#toc-code-examples}
+-   [Linux and Files](#linux-and-files){#toc-linux-and-files}
+    -   [Piping and
+        Redirection](#piping-and-redirection){#toc-piping-and-redirection}
+    -   [Important
+        Commands](#important-commands){#toc-important-commands}
+    -   [Complex Commands](#complex-commands){#toc-complex-commands}
+    -   [Linking](#linking){#toc-linking}
+    -   [Processes](#processes){#toc-processes}
+    -   [Bash Scripting](#bash-scripting){#toc-bash-scripting}
+-   [Regex](#regex){#toc-regex}
+    -   [Grep](#grep){#toc-grep}
+    -   [Writing Regex](#writing-regex){#toc-writing-regex}
+        -   [Wildcards](#wildcards){#toc-wildcards}
+        -   [Character
+            Classes](#character-classes){#toc-character-classes}
+-   [Elisp](#elisp){#toc-elisp}
+    -   [Construction of
+        Emacs](#construction-of-emacs){#toc-construction-of-emacs}
+    -   [Basic Syntax](#basic-syntax){#toc-basic-syntax}
+    -   [Customizing Emacs](#customizing-emacs){#toc-customizing-emacs}
+    -   [Examples](#examples){#toc-examples}
+-   [Networking](#networking){#toc-networking}
+    -   [The birth of the
+        internet.](#the-birth-of-the-internet){#toc-the-birth-of-the-internet}
+        -   [An Analog Version: Telephone
+            Networks](#an-analog-version-telephone-networks){#toc-an-analog-version-telephone-networks}
+        -   [ARPANET: The First Internet @ Boelter
+            3420](#arpanet-the-first-internet--boelter-3420){#toc-arpanet-the-first-internet--boelter-3420}
+    -   [Modern Networking](#modern-networking){#toc-modern-networking}
+        -   [Internet Protocol
+            Suite](#internet-protocol-suite){#toc-internet-protocol-suite}
+        -   [HTTP (Hypertext Transfer
+            Protocol)](#http-hypertext-transfer-protocol){#toc-http-hypertext-transfer-protocol}
+        -   [Browser
+            Rendering](#browser-rendering){#toc-browser-rendering}
+        -   [Code Examples](#code-examples-1){#toc-code-examples-1}
+    -   [Application
+        Styles](#application-styles){#toc-application-styles}
+        -   [Caching](#caching){#toc-caching}
+    -   [Midterm Tips:](#midterm-tips){#toc-midterm-tips}
+        -   [Files, Editing,
+            Shell](#files-editing-shell){#toc-files-editing-shell}
+        -   [Commands and Basic
+            Scripting:](#commands-and-basic-scripting){#toc-commands-and-basic-scripting}
+        -   [Python](#python-1){#toc-python-1}
+        -   [Networking](#networking-1){#toc-networking-1}
 
 # Python
 
@@ -80,6 +92,21 @@ Immutable types: Integers, Floats, Strings, Tuples, Bools, Frozensets.
 **`float(value)`**	Converts a value to a floating-point number.  
 
 **`str(value)`**	Converts a value to a string.  
+
+> `isalpha()`: Checks if all characters are alphabetic.  
+> `isdigit()`: Checks if all characters are digits.  
+> `isalnum()`: Checks if all characters are alphanumeric.  
+> `isspace()`: Checks if all characters are whitespace.  
+> `islower()`: Checks if all characters are lowercase.  
+> `isupper()`: Checks if all characters are uppercase.  
+> `istitle()`: Checks if the string is titlecased.  
+
+> `split(delimiter)`: Splits the string into a list of substrings based on the delimiter.  
+> `rsplit(delimiter)`: Splits the string from the right.  
+> `splitlines(keepends=False)`: Splits the string into a list of lines.  
+> `'seperator'.join(iterable)`: Joins elements of an iterable into a string, using seperator to seperate.  
+> `count(substring)`: Counts the occurrences of a substring.  
+> `replace(old, new)`: Replaces all occurrences of old with new.  
 
 **`list(iterable)`**	Creates a list from an iterable (e.g., a string, tuple, or range).  
 
@@ -214,6 +241,7 @@ Special Methods: (Dunder Methods)
 
 `try:`	Encloses the code that might raise an exception.  
 `except ExceptionType as variable_name:`	Specifies the type of exception to catch and the code to handle it.  
+> Exception Types: Exception, SyntaxError, TypeError, ValueError, FileNotFoundError...  
 `else:`	Executes if no exception occurs in the try block.  
 `finally:`	Executes regardless of whether an exception occurred or not.  
 
@@ -271,6 +299,7 @@ Generates random numbers and random operations. Import with `python import rando
 
 ### argparse
 
+
 **Purpose:**  
 - Parses command-line arguments.  
 - Defines how users can interact with your script via the command line.  
@@ -286,7 +315,7 @@ Generates random numbers and random operations. Import with `python import rando
   - `name or flags`: One or more names for the argument.  
   - `nargs`: Number of command-line arguments that should be consumed.  
 	- `?`: Zero or one argument.  
-	- `*`: Zero or more arguments, stored as a list.  
+	- `*`: Zero or more arguments, stored as a list. Will take all positional arguments after optional arguments.  
 	- `+`: One or more arguments, stored as a list.  
   - `type`: The type of the argument. Can be a function that returns a string  
   - `default`: Default value if the argument is not provided.  
@@ -449,6 +478,49 @@ Generates random numbers and random operations. Import with `python import rando
 					 sys.stdout.write(“Nope\n”)
 		 tries -= 1
 
+#### Echo Variant  
+
+	#!/usr/bin/env python3
+	import argparse, sys
+
+	parser = argparse.ArgumentParser(“weirdecho”)
+
+	parser.add_arguments(“ARGS”, nargs=”*”) //ca
+	parser.add_argument(“-n”, “--no-newlines”, action=”store_true”)
+	parser.add_argument(“-c”, “--character”, action=”store_true”)
+	parser.add_argument(“-r”, “--repeat”, type=int)
+	parser.add_argument(“-f”, “--file”, type=str)
+
+	args = vars(parser.parse_args())
+
+	args_option = args.get(“ARGS”)
+	no_newlines_option = args.get(“no_newlines”)
+	character_option = args.get(“character”)
+	repeat_option = args.get(“repeat”)
+	file_option = args.get(“file”)
+
+	contents = []
+
+	if file_option:
+		 with open(file_option, “r”) as f:
+			 contents = f.readlines()
+	else:
+		 contents = args_option
+
+	def print_lines():
+		 end_character = “”
+		 if character_option:
+			 end_character += “ :)”
+		if not no_newlines_option:
+			 end_character += “\n”
+	   for line in content:
+			 print(line, end=end_character)
+
+	if repeat_option:
+		 for _ in range(repeat_option):
+			  print_lines()
+	else:
+		 print_lines()
 
 
 # Linux and Files
@@ -583,7 +655,7 @@ Exit Status: The exit status of a pipeline is the exit status of the last comman
 
 ### Complex Commands
 
-**`find [path...] [expression]`** 
+#### **`find [path...] [expression]`** 
 
 Recursively descends the directory tree for each path listed, evaluating an expression (composed of the “primaries” and “operands” listed below) in terms of each file in the tree.  
 
@@ -648,7 +720,23 @@ Text substitution, deletion, insertion, transformation.
 - **`c\text`:** Replace the current line with text.
   - `sed '/pattern/c\New Line' file.txt`  
   
-**`sort [input_file]`**
+#### `grep PATTERN FILE`  
+
+Searches FILE with the regular expression PATTERN.   
+
+- **`-E`**: Forces ERE to be used.  
+* **`-i`**: Ignore case sensitivity.  
+* **`-v`**: Invert the match; select non-matching lines.  
+* **`-n`**: Print line numbers with each match.  
+* **`-c`**: Count the number of matching lines.  
+* **`-w`**: Match whole words only.  
+* **`-x`**: Match entire lines.  
+* **`-q`**: Suppress output.  
+* **`-A num`**: Print `num` lines of context after the match.  
+* **`-B num`**: Print `num` lines of context before the match.  
+* **`-C num`**: Print `num` lines of context before and after the match.  
+
+#### **`sort [input_file]`**
 
 Sort lines in a text file.  
 
@@ -658,7 +746,7 @@ Sort lines in a text file.
 - `-u`: suppress repeated lines.  
 - `-o FILE`: Write output to a file instead of stdout  
 
-**`tr [options] SET1 SET2`**
+#### **`tr [options] SET1 SET2`**
 
 Used to translate or delete characters.  
 
@@ -667,13 +755,13 @@ Used to translate or delete characters.
 - `-c`: Complement the character set.  
 - Example: tr 'a-z' 'A-Z' < input.txt > output.txt  z
 
-**`comm [options] file1 file2`**
+#### **`comm [options] file1 file2`**
 
 Compare two sorted files line by line.  
 
 - `-1`, `-2`, `-3`: Suppress lines unique to file1, file2, or both.  
 
-**`awk 'pattern { action }' file`**
+#### **`awk 'pattern { action }' file`**
 
 Pattern scanning and processing. Good for workign with structured data.  
 
@@ -683,6 +771,16 @@ Pattern scanning and processing. Good for workign with structured data.
   - ie: `awk -F, '{ print \$1, \$3 }' file.txt`  
 - `-F` set field-separator to be the following regex.  
 - Use regex by creating a pattern of form `'/.../`. The `'` stops shell from interpreting special characters, passing it directly to regex.  
+
+#### **`wc [options] [file...]`**
+
+Count lines, words, or bytes in text file.  
+
+* **`-l`**: Counts the number of lines.  
+* **`-w`**: Counts the number of words.  
+* **`-c`**: Counts the number of characters.  
+* **`-m`**: Counts the number of bytes.  
+* **`-L`**: Prints the length of the longest line.  
 
 > Example of combining commands: `tr -cs "A-Za-z0-9,'\.!/-" "[\n*]" | sort -u | comm -23 - sorted.word`
   
@@ -755,12 +853,10 @@ Potential output fields include:
 `kill PID` Kills a process.  
 `kill -9 PID` Forcefully kills a process.  
 
-# Bash Scripting
+## Bash Scripting
 
 A bash script is named `name.sh`. Run with `bash name.sh`.  
 First line should be: `#!/bin/bash`. A shebang that specifies the interpreter.  
-
-
 
 **Variables**  
 
@@ -772,6 +868,7 @@ First line should be: `#!/bin/bash`. A shebang that specifies the interpreter.
 - ie: `$0` refers to name of script.  
 `$#` Number of arguments  
 `$$` Process ID.  
+`$?` Check exit status of last executed command.  
 
 **Strings**  
 if `name="John"`  
@@ -785,6 +882,7 @@ if `name="John"`
 
 **Conditionals**  
 
+
 `if [[condition]]; then ...` If condition is true, evaluate then.  
 `elif [[condition]]; then ...` Otherwise evaluate the elif.  
 `fi` Marks end of conditional.  
@@ -792,10 +890,12 @@ if `name="John"`
 - `[[cond STR]]` Check single string. `-z` empty string, `-n` not empty string.  
 - `[[STR cond STR]]` Compare two strings. `==`, `<`, `>`, `!=`, `=~` (second string used as regex).  
 - `&&`, `||`, `-a`, or `-o` for logical and and or.  
+- Note: use the symbols to compare string, and the other for numbers. (!= vs -ne).  
 
 **Loops**  
 
 `for variable in list; do ... done`  
+`for ((i = 0; i < 10; i++)); do ... done`  
 `while [ condition ]; do ... done`  
 
 **IO**  
@@ -808,6 +908,27 @@ if `name="John"`
 
 	files_count=$(ls | wc -l)
 	echo "There are $files_count files in the directory."
+	
+**Forking**  
+
+Appending `&` to a command makes it run in the background.
+
+**Command Evaluation**  
+
+1. `[ condition ]` Runs the test command. All POSIX shells have it builtin. The test command sets an exit code and the if statement acts accordingly. Typical tests are whether a file exists or one number is equal to another.  
+
+2. `[[ condition ]]` Upgraded variation on test. Sets an exit code and the if statement acts accordingly. It can test whether a string matches a wildcard pattern.  
+
+3. `((condition))` This performs arithmetic. As the result of the arithmetic, an exit code is set, and the if statement acts accordingly. 
+- Returns an exit code of zero (true) if the result is nonzero.  
+
+4. `(command)` This runs command in a subshell. When command completes, it sets an exit code and the if statement acts accordingly.  
+
+5. `$((...))` Does arithmetic expression evaluation. Can perform arithmetic operations such as addition, subtraction, multiplication, etc.  
+
+**Subshell**  
+
+Commands run in parenthesis are run in a subshell. Output is treated as a single stream, concatenated.  
 
 #### Example
 
@@ -825,6 +946,116 @@ Read lines from file:
 	cat file.txt | while read line; do  
 	  echo $line  
 	done  
+	
+Echo n times:  
+
+	\#!/bin/bash  
+	if [[ $# -ne 2 && ${2} -gt 0 ]]  
+	then  
+		 echo “Oops not enough args” >&2  
+		 exit 1  
+	fi  
+
+	REPEAT=${2}  
+	INPUT=${1}  
+	while [[ ${REPEAT} -ne 0 ]]; do  
+		echo "${INPUT}";  
+		REPEAT=$((REPEAT-1))  
+	done
+
+# Regex  
+
+## Grep
+
+We will mostly be using `grep`, which can use three different syntaxes.  
+
+> ERE: extended regular expression. To not use meta-characters, need to escape them `\`.
+> BRE: basic regular expression. To use meta-characters, need to escape them `\`.
+> PCRE: perl compatible regular expression.  
+
+
+## Writing Regex  
+
+### Wildcards
+
+**`.`**: matches any one character except a newline.  
+- Example: `c.t` matches "cat" or "cot".  
+
+**`*`**: matches zero or more occurences of the preceding character.  
+- Example: `ca*t` atches "ct", "cat", or "caat".  
+
+**`+`**: matches one or more occurences of preceding character.  
+- Example: `ca+t` matches "cat", "caat", but not "ct".  
+
+**`?`**: matches zero or one occurrence of a character.
+- Example: `colou?r` matches "color" and "colour".  
+	
+**`{n}`**: specifies a number of repetitions of the preceding character.  
+
+> `a{3}` matches "aaa".  
+> `{n,}` matches n or more times.  
+> `{,n}` matches at most n times.  
+> `{n,m}` matches at least n times, no more than m times.  
+
+**`^`**: matches the beginning of a string.  
+- Example: `^The` matches "The" if it appears at the start of a string.  
+
+
+**`$`**: Matches the end of a string.  
+- Example: `end$` matches "end" if it appears at the end of a string.  
+
+**`[]`**: Defines a character set. It matches any single character in the list.  
+
+> `[aeiou]` matches any vowel.  
+> `[^...]`, `^` at the beginning of the list makes the expression match any character not in the list.  
+> `[x-y]` match any character ranging from x to y.  
+
+#### Combining Patterns
+
+**`[pattern1]|[pattern2]`** Infix operator. A way of matching two expressions together, that matches strings that matches either  **pattern1** or **pattern2**.  
+
+**Lookaheads** assert a condition is true without consuming any characters.  
+`(?=foo)` Positive lookahead. Asserts that foo is matched, but doesn't consume foo.  
+- Example: (?=[A-Z])[^AEIOU] // checks for uppercase consonants  
+`(?<=foo)` Negative lookahead. Asserts that the following characters do not match foo.  
+
+`()` Form a capturing group.  
+`(?:...)` Form a non-capturing group.  
+
+> `\n` Will reference the n-th captured group. 
+> `echo "abcdxabcd" | grep -b "\(abc*d\)x\1" # output abcdxabcd`
+
+Multiple regular expressions can be concatenated. Any two concatenated expressions will match strings that is made up of two substrings that respectively match the concatenated expressions.  
+
+### Character Classes
+
+**`\c`** Control character  
+**`\s`** White space  
+**`\S`** Not white space  
+**`\d`** Digit  
+**`\D`** Not digit  
+**`\w`** Word  
+**`\W`** Not word  
+**`\x`** Hexadecimal digit  
+**`\O`** Octal digit  
+**`\A`** Start of string  
+**`\Z`** End of string  
+**`\b`** Word boundary  
+**`\B`** Not word boundary  
+
+`[:upper:]` Upper case letters  
+`[:lower:]` Lower case letters  
+`[:alpha:]` All letters  
+`[:alnum:]` Digits and letters  
+`[:digit:]` Digits  
+`[:xdigit:]` Hexade­cimal digits  
+`[:punct:]` Punctuation  
+`[:blank:]` Space and tab  
+`[:space:]` Blank characters  
+`[:cntrl:]` Control characters  
+`[:graph:]` Printed characters  
+`[:print:]` Printed characters and spaces  
+`[:word:]` Digits, letters and underscore  
 
 # Elisp
 
@@ -887,6 +1118,145 @@ Hooks and Advice: Elisp supports hooks (functions run at certain points) and adv
 
 `(condition-case nil (my-function) (error (message "An error occurred.")))` Handles errors.  
 
+Hooks and Advice: Elisp supports hooks (functions run at certain points) and advice (modifying the behavior of existing functions). Hooks are defined with add-hook.  
+
+### Customizing Emacs
+
+#### Manipulating Pointer
+
+`backward-char`: Moves point backward one character.  
+`forward-char`: Moves point forward one character.  
+`beginning-of-line`: Moves point to the beginning of the line.  
+`end-of-line`: Moves point to the end of the line.  
+
+
+`point`: Returns the current position of point.  
+`point-min`: Returns the beginning of the buffer.  
+`goto-char`: Moves point to a specific position.  
+- Example: (goto-char (point-min)) moves point to beginning of buffer.  
+
+#### Insertion
+
+`insert-char`: Inserts a single character at point.  
+`delete-char`: Deletes the character at point.  
+`kill-line`: Deletes the current line.  
+`yank`: Pastes the last killed text.  
+
+`message`: Displays a message in the minibuffer.  
+- Usage (message FORMAT &rest ARG)  
+- Example: (message "Hello, Emacs!")  
+- Example: (message "Hello, %s!" "World")  
+
+`insert`: Inserts text at point. It can be used to insert strings, numbers, or the results of expressions.  
+- Example: (insert "Hello, world!")
+
+`format`: Formats a string according to a format string. Similar to printf in C.
+- Example: (format "The value of pi is approximately %f" pi)
+
+#### Strings
+
+`make-string` Creates a string of given length filled with a specific character.  
+- Usage: (make-string length char)  
+- Example: (make-string 10 ?*) // Creates a string of 10 asterisks  
+  - the `?` specifies that `*` is a character not a string.  
+
+`string` Converts an object to a string representation.  
+- Usage: (string object)  
+- Example: (string 123) // Converts the number 123 to the string "123"
+
+`substring` Extracts a substring from a string.  
+- Usage: (substring string start end)  
+- Example: (substring "Hello, world!" 7) // Extracts "world!"
+
+`concat` Concatenates multiple strings.  
+- Usage: (concat string1 string2 ...)  
+- Example: (concat "Hello, " "world!") // Concatenates the strings to "Hello, world!"
+- Example: (concat (make-string 5 "Hello")) // "HelloHelloHelloHelloHello"
+
+`format-time-string` Formats current time according to format string.  
+- Usage: (format-time-string FORMAT &optional TIME)  
+- Example: (format-time-string "%Y-%m-%d %H:%M:%S") -> "2024-10-25 12:30:45"  
+
+> %Y: Four-digit year (e.g., 2024)  
+> %y: Two-digit year (e.g., 24)  
+> %m: Two-digit month (01 to 12)  
+> %B: Full month name (e.g., October)  
+> %b or %h: Abbreviated month name (e.g., Oct)  
+> %d: Two-digit day of the month (01 to 31)  
+> %e: Day of the month (1 to 31, without leading zero)  
+> %j: Day of the year (001 to 366)  
+> %A: Full weekday name (e.g., Friday)  
+> %a: Abbreviated weekday name (e.g., Fri)  
+> %u: Day of the week (1 to 7, where Monday is 1)  
+> %H: Hour (00 to 23)  
+> %I: Hour (01 to 12)  
+> %M: Minute (00 to 59)  
+> %S: Second (00 to 59)  
+> %p: AM or PM designation  
+
+`insert-date` Inserts current date into buffer. Usually used in conjunction with format-time-string.  
+
+#### Interaction
+
+`interactive` Makes a function that can be called interactively by users. Can take user input. Specify different types of input using prefixes.
+- Example: (interactive "sEnter text: ") // takes a string input.  
+- Other prefixes: `n` number. `f` file. `D` directory. etc...  
+
+`global-set-key`: Sets a global key binding.  
+- Usagee: (global-set-key (kbd "key-binding:) `command-name)  
+- Alt: M-x global-set-key RET key-binding command-name RET  
+- Example: (global-set-key (kbd "C-c C-h") 'my-hello-world)  
+
+#### Testing
+
+`(require 'ert)` Loads the ert library, Emac's lisp testing framework. 
+`ert-deftest` Macro that creates a new test function.  
+`should` Used to say enclosed assertion must evaluate to true for the test to pass.  
+`M-x ert RET test-function RET` Allows you to run test-function.  
+
+Usage: `(ert-deftest some-test () (should (assertion-here)))`
+Example: ('require ert) (ert-deftest sum-evens-test () (should (= (sum-evens '(1 3 5)) 0 )) (should (= (sum-evens '(2 4 6)) 12)))  
+
+
+### Examples
+
+Create interactive function:  
+
+	(defun my-interactive-function (arg1 arg2 arg3)
+	  (interactive "sString argument: \niInteger argument: \nxFile name: ")
+	  (message "You entered: %s %d %s" arg1 arg2 arg3))
+
+  
+Count words in buffer:  
+
+	(defun count-words ()
+	  (interactive)
+	  (let ((words 0))
+	    (goto-char (point-min))
+		(while (forward-word)
+		  (setq words (+ 1 words))
+		  )
+	    (message (format "Words in Buffer: %s" words))))
+
+Display current line / number of lines in buffer:  
+
+	(defun gps-line ()
+	  "Print the current buffer line number and narrowed line number of point."
+	  (interactive)
+	  (let ((start (point-min))
+		(n (line-number-at-pos))
+		(count 0))
+		(save-excursion   ;; Save cursor position
+		  (goto-char (point-min))
+		  (while (re-search-forward (regexp-quote "\n") nil t) ;; look for newlines
+			(setq count (1+ count))))
+		(if (= start 1)
+		(message "Line %d/%d" n count)
+		  (save-excursion
+		(save-restriction
+		  (widen)
+		  (message "line %d/%d"
+		    (+ n (line-number-at-pos start) -1) count))))))
 
 
 
@@ -964,10 +1334,13 @@ Hooks and Advice: Elisp supports hooks (functions run at certain points) and adv
 4. The destination IMP reassembles packets and delivers the message to the destination host.  
 
 ## Modern Networking
-
+	
 ### Internet Protocol Suite
 
 Commonly known as the TCP/IP model. A combination of protocols, governing operation of the internet. Structured in layers that each serve a purpose.  
+
+> When data is sent, data goes in this order: Application -> Transport -> Internet -> Linking -> Physical  
+> When data is received, data goes in the opposite order: Physical -> Linking -> Internet -> Transport -> Application  
 
 #### Link Layer (Network Access Layer)  
 - **Purpose**: Facilitates communication between adjacent nodes on the same local network.   
@@ -1235,7 +1608,21 @@ Each computer acts as client and server. Resources are shared mutually without a
   - Difficult to manage and monitor the network, without central control.  
 
 
-//Still need to include: emacs. processes and users
+### Caching
+
+#### Multiple Places of Caching  
+1. Local Cache: This is the cache stored on the user's device. It holds static assets like images, CSS, and JavaScript files.  
+2. ISP Cache: Internet Service Providers may cache frequently accessed resources to reduce bandwidth and improve speed for their users.  
+3. Web Server Cache: Web servers can also cache dynamic content to reduce database load and speed up response times. Techniques include page caching, opcode caching, and object caching.  
+
+#### Factors Affecting Caching  
+1. Device and Browser: Different devices and browsers may have different caching behaviors and limitations.  
+2. User Settings: Users can clear their browser cache, affecting how resources are loaded.  
+3. User Agents: These are applications (like web browsers) that access web content. Different user agents may have different caching strategies or capabilities.  
+3. Network Conditions: Network latency and bandwidth can impact caching strategies.  
+4. Server Configuration: Server-side settings, such as HTTP headers, can control caching behavior.  
+
+
 
 
 ## Midterm Tips:  
@@ -1309,25 +1696,14 @@ Python:
 ### Networking
 
 Networking:  
-- version control  
-- Order of network protocols.  
-  - User/Application (Firefox) -> Application (HTTP) -> Transport (TCP) -> Network (IP) -> Link (Ethernet driver) -> Hardware (Ethernet)  
-  - Opposite order depending on recipient/sender.  
-  - Https vs circuit switching??  
 - out of order execution. -> when working with networking, its harder to keep state in sync.  
 - same with stale caches.  
 - HTTP -> 1 vs 2 vs 3. Support for streaming data/speed.
   - new protocols? 
 
-Browser Caching:  
-- Different browser vs. different device vs. clearing cache.  
-- state caching  
-- multiple places of caching, isp, local cache, web server.  
-- different user agents.  
-- stale caching.  
-
-Bash Scripting:  
-- `tr`, `grep`, `sort`, `comm`, `<&0`.  
 
 Character encoding!
 - ASCII, UTF, other things.  
+
+
+
