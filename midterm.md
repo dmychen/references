@@ -544,11 +544,18 @@ Directories contain other files and directories. It contains multiple directory 
 - `/usr`: User utilities and applications.  
 - `/var`: Variable data files (logs, databases).  
 
-
 **Directory Entry**  
 
 A record within a directory that associates a filename with its corresponding inode. Acts as a link between the filename and file's metadata.  
 - Filename, file size, permissions, ownership, timestamps, inode number.  
+
+**PATH**  
+An environment variable: list of directories the shell searches for executables when you type a command. 
+`export PATH=$PATH:/path/to/new/directory` This temporarily changes the path. Appends the new path to end of variable, which means it will be run last.  
+- searches through each directory in order left to right.  
+    - PATH=$PATH:/usr/local/cs/bin <- adds this cs bin to the end of the path, so it will be the last to run if there exists other copies in previous directories in the path.  
+	- instead run PATH=/usr/local/cs/bin:$PATH.  
+	- PATH=/usr/local/cs/bin:.:/usr/bin
 
 #### Globbing Characters (Wildcards):  
 
@@ -659,7 +666,7 @@ Exit Status: The exit status of a pipeline is the exit status of the last comman
 
 Recursively descends the directory tree for each path listed, evaluating an expression (composed of the “primaries” and “operands” listed below) in terms of each file in the tree.  
 
-**Options**:
+Options:
 - `-name <pattern>`: Search for files matching a specific pattern (case-sensitive).  
   - Example: `find . -name "*.txt"`  
 - `-iname <pattern>`: Search for files matching a pattern (case-insensitive).  
@@ -678,14 +685,14 @@ Recursively descends the directory tree for each path listed, evaluating an expr
 - `-maxdepth <n>`: Limit the search to n levels of directories.  
   - Example: `find . -maxdepth 2 -name "*.txt"`  
 - `-mindepth <n>`: Skip the first n levels of directories in the search.  
-**Logical Operators**:  
+Logical Operators:  
 - `-and`: Combine multiple conditions (default).  
   - Example: `find . -type f -and -size +1M`  
 - `-or`: Combine conditions; either condition can be true.  
   - Example: `find . -name "*.jpg" -or -name "*.png"`  
 - `-not`: Negate a condition.  
   - Example: `find . -not -name "*.txt"`  
-**Actions**:  
+Actions:  
 - `-print`: Output the found files (default action).    
 - `-exec <command> {}`: Execute a command on each found file.  
   - Use `\;` to terminate the command.  
@@ -693,19 +700,20 @@ Recursively descends the directory tree for each path listed, evaluating an expr
 - `-execdir <command> {}`: Similar to `-exec`, but runs the command from the directory where the file was found.  
 - `-delete`: Delete the found files.  
   - Example: `find . -type f -name "*.tmp" -delete`  
-	**`sed [options] 'script' [input_file]`** 
+
+#### **`sed [options] 'script' [input_file]`** 
 
 Text substitution, deletion, insertion, transformation.  
 
-**Options**:  
+Options:  
 - `e`: Specify a command to be executed.  
   - `sed -e 's/foo/bar/g' -e 's/baz/qux/g' file.txt`  
-- i[SUFFIX]: Edit files in place; if a suffix is provided, backup files are created.  
+- `i[SUFFIX]`: Edit files in place; if a suffix is provided, backup files are created.  
   - `sed -i.bak 's/old/new/g' file.txt  \# Creates file.txt.bak`  
-- n: Suppress automatic output; only output lines explicitly specified with p.  
-- r or -E: Use extended regular expressions.  
+- `n`: Suppress automatic output; only output lines explicitly specified with p.  
+- `r` or `-E`: Use extended regular expressions.  
   - `sed -E 's/(foo|bar)/baz/g' file.txt`  
-**Commands**:  
+Commands:  
 - **`p`:** Print the current pattern space.  
   - `sed -n '1,3p' file.txt`  Print lines 1 to 3  
 - **`d`:** Delete the current pattern space.  
@@ -782,8 +790,15 @@ Count lines, words, or bytes in text file.
 * **`-m`**: Counts the number of bytes.  
 * **`-L`**: Prints the length of the longest line.  
 
-> Example of combining commands: `tr -cs "A-Za-z0-9,'\.!/-" "[\n*]" | sort -u | comm -23 - sorted.word`
+> Example of combining commands: `tr -cs "A-Za-z0-9,'\.!/-" "[\n*]" | sort -u | comm -23 - sorted.word`  
   
+#### **`shuf [options] [file]`**  
+
+- `shuf -i LO-HI [OPTION]` // range shuf: shuffle range of integers  
+- `shuf -e [OPTION]... [ARG]` //list shuf: shuffle args  
+
+- `-n`: Specify number of lines to shuffle.  
+
 ### Linking
 	
 #### Inodes  
@@ -1203,7 +1218,7 @@ Hooks and Advice: Elisp supports hooks (functions run at certain points) and adv
 - Other prefixes: `n` number. `f` file. `D` directory. etc...  
 
 `global-set-key`: Sets a global key binding.  
-- Usagee: (global-set-key (kbd "key-binding:) `command-name)  
+- Usage: (global-set-key (kbd "key-binding:) `command-name)  
 - Alt: M-x global-set-key RET key-binding command-name RET  
 - Example: (global-set-key (kbd "C-c C-h") 'my-hello-world)  
 
@@ -1623,18 +1638,64 @@ Each computer acts as client and server. Resources are shared mutually without a
 4. Server Configuration: Server-side settings, such as HTTP headers, can control caching behavior.  
 
 
+# Character Encoding  
+
+Representing characters and numbers, bits and bytes.  
+
+#### Pre-ASCII Encodings  
+
+- **6-bit encodings** Up to 32 characters, ok for case-insensitive English.  
+- **IBM EBCDIC** Early 8-bit encoding: competitor of ASCII. Cons: Too complex.  
+
+#### ASCII 1960s  
+
+- **ASCII** 7-bit encoding (128 chars).  
+  - 52 letters, 10 digits, 33 control chars, 33 symbols.  
+  - Offset: Using bitwise operations for case conversion -> set 6th bit, adding 32 to value.  
+	- `'A' (0x41) = 01**0**0 0001` -> `'a' (0x61) = 01**1**0 0001`  
+  - Lacks support for accented characters and other languages.  
+  
+#### 8-bit Encodings  
+
+- Extending ASCII to 8-bits (256 chars).  
+- **ISO/IEC 8859** (Latin-1, etc..): Standardized 8-bit for different languages.  
+  - Latin-1 (ISO-8859-1): Western European languages  
+  - Latin-2 (ISO-8859-2): Central European languages.  
+  - Latin-3 (ISO-8859-3): Southern European languages.  
+  - Latin-4 (ISO-8859-4): Northern European languages.  
+  - Latin-4 (ISO-8859-5): Cyrillic (Russian, Bulgarian, Serbian, Ukrainian etc).  
+  - Latin-15 (ISO-8859-15): New Western Europe (updated, Eurosign (€) and other characters)  
+  - need meta-info to determine codepage.
+  
+#### CJK Encodings  
+
+- **CJK**: Logograms. Thousands of characters, multi-byte encoding schemes. Cons: bloated files.  
+- **Shift-JIS** Japanese, 1997 Microsoft: Variable-length encoding (1-2 bytes).  
+  - Decoding: Check top bit. (0 = 1-byte ASCII, 1 = 2-byte char).  
+	- If 2-byte, combine bytes and look up two-byte char. 13-bit payload.  
+	
+#### Unicode  
+
+- Assigns a unique number (code point) to every character, no matter language or platform.  
+- Doesn't define how they are encoded in bytes.  
+- **UTF-8** Popular encoding: variable length (1-4 bytes).  
+  - 0xx... -> 1 byte.  
+  - 110xx... + 10xx... -> 2 bytes.  
+  - 1110xx... + 10xx... + 10xx... -> 3 bytes.  
+- Parsing Errors: Invalid bytes (11111xxx), unexpected continuation byte. Truncated sequence. Overlong encoding.  
+- **Problems** with unicode:  
+  - Homoglyphs -> two unique code points look the same.  
+  - Synoglyphs -> same character looks different on different platforms/fonts.  
+  - Normalization -> Different ways to represent a char.  
+	- Composed form vs Precomposed form.  
+
+
 
 
 ## Midterm Tips:  
 
 Content: 
 - Topics: emacs, emacs lisp, shell scripting, python scripting, regex, networking. (no react)  
-- Questions on... Bash scripting. Python scripting (writing function, writing script). Regex. Reading/Fixing Emacs Lisp. Comparison questions: pros and cons.
-
-
-Writing Notes: directory entry = file
-
-NO MCQ!  
 
 Tips: 
 - Print out assignments!  
@@ -1644,8 +1705,6 @@ Tips:
 - There might be impossible questions. Might ask to explain bugs.  
 - pay attention to wording.  
 - creative questions: might allow both yes or no, with reasoning.  
-
-### Files, Editing, Shell
 
   - PATH searches through each directory in order left to right.  
     - PATH=$PATH:/usr/local/cs/bin <- adds this cs bin to the end of the path, so it will be the last to run if there exists other copies in previous directories in the path.  
