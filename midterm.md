@@ -2,69 +2,69 @@
 
 ### TABLE OF CONTENTS  
 
--   [Midterm Reference](#midterm-reference){#toc-midterm-reference}
--   [Python](#python){#toc-python}
-    -   [Syntax](#syntax){#toc-syntax}
-        -   [File I/O](#file-io){#toc-file-io}
-        -   [Data Types](#data-types){#toc-data-types}
-        -   [Control Flow](#control-flow){#toc-control-flow}
-        -   [Functions](#functions){#toc-functions}
+-   [Midterm Reference](#midterm-reference)
+-   [Python](#python)
+    -   [Syntax](#syntax)
+        -   [File I/O](#file-io)
+        -   [Data Types](#data-types)
+        -   [Control Flow](#control-flow)
+        -   [Functions](#functions)
         -   [Generators
-            (Yield)](#generators-yield){#toc-generators-yield}
-        -   [Classes (OOP)](#classes-oop){#toc-classes-oop}
-        -   [Miscellaneous](#miscellaneous){#toc-miscellaneous}
+            (Yield)](#generators-yield)
+        -   [Classes (OOP)](#classes-oop)
+        -   [Miscellaneous](#miscellaneous)
     -   [Modules and
-        Packages](#modules-and-packages){#toc-modules-and-packages}
-        -   [sys](#sys){#toc-sys}
-        -   [random](#random){#toc-random}
-        -   [argparse](#argparse){#toc-argparse}
-    -   [Code examples](#code-examples){#toc-code-examples}
--   [Linux and Files](#linux-and-files){#toc-linux-and-files}
+        Packages](#modules-and-packages)
+        -   [sys](#sys)
+        -   [random](#random)
+        -   [argparse](#argparse)
+    -   [Code examples](#code-examples)
+-   [Linux and Files](#linux-and-files)
     -   [Piping and
-        Redirection](#piping-and-redirection){#toc-piping-and-redirection}
+        Redirection](#piping-and-redirection)
     -   [Important
-        Commands](#important-commands){#toc-important-commands}
-    -   [Complex Commands](#complex-commands){#toc-complex-commands}
-    -   [Linking](#linking){#toc-linking}
-    -   [Processes](#processes){#toc-processes}
-    -   [Bash Scripting](#bash-scripting){#toc-bash-scripting}
--   [Regex](#regex){#toc-regex}
-    -   [Grep](#grep){#toc-grep}
-    -   [Writing Regex](#writing-regex){#toc-writing-regex}
-        -   [Wildcards](#wildcards){#toc-wildcards}
+        Commands](#important-commands)
+    -   [Complex Commands](#complex-commands)
+    -   [Linking](#linking)
+    -   [Processes](#processes)
+    -   [Bash Scripting](#bash-scripting)
+-   [Regex](#regex)
+    -   [Grep](#grep)
+    -   [Writing Regex](#writing-regex)
+        -   [Wildcards](#wildcards)
         -   [Character
-            Classes](#character-classes){#toc-character-classes}
--   [Elisp](#elisp){#toc-elisp}
+            Classes](#character-classes)
+-   [Elisp](#elisp)
     -   [Construction of
-        Emacs](#construction-of-emacs){#toc-construction-of-emacs}
-    -   [Basic Syntax](#basic-syntax){#toc-basic-syntax}
-    -   [Customizing Emacs](#customizing-emacs){#toc-customizing-emacs}
-    -   [Examples](#examples){#toc-examples}
--   [Networking](#networking){#toc-networking}
+        Emacs](#construction-of-emacs)
+    -   [Basic Syntax](#basic-syntax)
+    -   [Customizing Emacs](#customizing-emacs)
+    -   [Examples](#examples)
+-   [Networking](#networking)
     -   [The birth of the
-        internet.](#the-birth-of-the-internet){#toc-the-birth-of-the-internet}
+        internet.](#the-birth-of-the-internet)
         -   [An Analog Version: Telephone
-            Networks](#an-analog-version-telephone-networks){#toc-an-analog-version-telephone-networks}
+            Networks](#an-analog-version-telephone-networks)
         -   [ARPANET: The First Internet @ Boelter
-            3420](#arpanet-the-first-internet--boelter-3420){#toc-arpanet-the-first-internet--boelter-3420}
-    -   [Modern Networking](#modern-networking){#toc-modern-networking}
+            3420](#arpanet-the-first-internet--boelter-3420)
+    -   [Modern Networking](#modern-networking)
         -   [Internet Protocol
-            Suite](#internet-protocol-suite){#toc-internet-protocol-suite}
+            Suite](#internet-protocol-suite)
         -   [HTTP (Hypertext Transfer
-            Protocol)](#http-hypertext-transfer-protocol){#toc-http-hypertext-transfer-protocol}
+            Protocol)](#http-hypertext-transfer-protocol)
         -   [Browser
-            Rendering](#browser-rendering){#toc-browser-rendering}
-        -   [Code Examples](#code-examples-1){#toc-code-examples-1}
+            Rendering](#browser-rendering)
+        -   [Code Examples](#code-examples-1)
     -   [Application
-        Styles](#application-styles){#toc-application-styles}
-        -   [Caching](#caching){#toc-caching}
-    -   [Midterm Tips:](#midterm-tips){#toc-midterm-tips}
+        Styles](#application-styles)
+        -   [Caching](#caching)
+    -   [Midterm Tips:](#midterm-tips)
         -   [Files, Editing,
-            Shell](#files-editing-shell){#toc-files-editing-shell}
+            Shell](#files-editing-shell)
         -   [Commands and Basic
-            Scripting:](#commands-and-basic-scripting){#toc-commands-and-basic-scripting}
-        -   [Python](#python-1){#toc-python-1}
-        -   [Networking](#networking-1){#toc-networking-1}
+            Scripting:](#commands-and-basic-scripting)
+        -   [Python](#python-1)
+        -   [Networking](#networking-1)
 
 # Python
 
