@@ -4,6 +4,8 @@
 
 A *regular expression* (regex) is a pattern that describes a set of strings. Can use various operators to combine smaller expressions.   
 
+## Grep
+
 We will mostly be using `grep`, which can use three different syntaxes.  
 
 > ERE: extended regular expression.  
@@ -12,15 +14,21 @@ We will mostly be using `grep`, which can use three different syntaxes.
 
 `grep PATTERN FILE` Searches FILE with the regular expression PATTERN.   
 
-> `-E` Forces ERE to be used.  
+- **`-E`**: Forces ERE to be used.  
+* **`-i`**: Ignore case sensitivity.  
+* **`-v`**: Invert the match; select non-matching lines.  
+* **`-n`**: Print line numbers with each match.  
+* **`-c`**: Count the number of matching lines.  
+* **`-w`**: Match whole words only.  
+* **`-x`**: Match entire lines.  
+* **`-q`**: Suppress output.  
+* **`-A num`**: Print `num` lines of context after the match.  
+* **`-B num`**: Print `num` lines of context before the match.  
+* **`-C num`**: Print `num` lines of context before and after the match.  
 
-Other commands that use regex: 
+## Writing Regex  
 
-`sed s/PATTERN1/PATTERN2/g`  idk its confusing. Basically find and replace.
-
-### Writing Regex  
-
-#### Wildcards
+### Wildcards
 
 **`.`**: matches any one character except a newline.  
 - Example: `c.t` matches "cat" or "cot".  
@@ -56,7 +64,7 @@ Other commands that use regex:
 > `[x-y]` match any character ranging from x to y.  
 
 
-#### Combining Patterns
+### Combining Patterns
 
 **`[pattern1]|[pattern2]`** Infix operator. A way of matching two expressions together, that matches strings that matches either  **pattern1** or **pattern2**.  
 
@@ -76,7 +84,7 @@ Multiple regular expressions can be concatenated. Any two concatenated expressio
 The order of precedence in regular expressions is as follows: repetition > concatenation > alternation. 
 
 
-#### Character Classes
+### Character Classes
 
 **`\c`** Control character  
 **`\s`** White space  
@@ -92,8 +100,18 @@ The order of precedence in regular expressions is as follows: repetition > conca
 **`\b`** Word boundary  
 **`\B`** Not word boundary  
 
-
-
-
+`[:upper:]` Upper case letters  
+`[:lower:]` Lower case letters  
+`[:alpha:]` All letters  
+`[:alnum:]` Digits and letters  
+`[:digit:]` Digits  
+`[:xdigit:]` Hexade­cimal digits  
+`[:punct:]` Punctuation  
+`[:blank:]` Space and tab  
+`[:space:]` Blank characters  
+`[:cntrl:]` Control characters  
+`[:graph:]` Printed characters  
+`[:print:]` Printed characters and spaces  
+`[:word:]` Digits, letters and underscore  
 
 Practice creating regex expressions at [regex101](https://regex101.com/).  
