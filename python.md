@@ -171,3 +171,40 @@ For immutable objects, nothing can change.
 
 For mutable objects, changes made in function body will change original object. Assignments will not affect original objects, however. You can only change an object in its original address space, can't assign a new value to it!  
 
+## Python Examples
+
+	Counting
+
+	#!/usr/bin/env python3
+	import sys, subprocess
+	from collections import defaultdict
+
+	if len(sys.argv) != 2:
+	   print("Wrong argument number")
+	   sys.exit(1)
+
+	# get revision range from command line
+	revision_range = sys.argv[1]
+
+	# run git log
+	log = subprocess.run(
+		["git", "log", revision_range],
+		capture_output=True,
+		text=True
+		)
+
+	if log.returncode != 0:
+		print("Error running git log:", log.stderr)
+		sys.exit(1)
+
+	# store timezone counts in a dictionary
+	timezone_count = defaultdict(int)
+	for line in log.stdout.splitlines():
+		if line.startswith("Date:"):
+		   zone = line.rsplit(" ", 1)[-1]
+		   if len(zone) == 5 and zone[1:].isdigit():
+			  timezone_count[zone] += 1
+
+	for key, value in sorted(timezone_count.items()):
+		print(f"{key} {value}")
+
