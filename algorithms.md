@@ -35,3 +35,4 @@
 			 print(curr.value)
 			 curr = curr.next
 
+NOT DONE

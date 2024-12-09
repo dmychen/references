@@ -30,7 +30,7 @@ What is version control? Version control deals with managing changes in files ov
 - Pros: collaboration, see how much everyone is doing, admins can control who can do what.  
 - Cons: single point of failure, limited offline access, performance issues.  
 
-## Git 
+## Intro to Git 
 
 #### Architecture  
 
@@ -78,52 +78,75 @@ The `.git` directory is where git stores data.
 
 ### Structure  
 
- Object files are the core storage of git's data. Indexed via a 40-character SHA-1 hash.  
+ Object files are the core storage of git's data. Indexed via a 40-character hexidecimal SHA-1 hash.  
 
+**Blobs**: represents content of individual files.  
+- Each version of a file is stored as a different blob.  
+- Doesn't store metadata, just the content. SHA-1 hash is the name of the blob.  
+- `git show HASH` Show blob corresponding to hash.  
+- `git hash-object FILE` Shows hash corresponding to file.  
 
-**Trees**: represent directory structure of your projectat a specific point of time. Link blobs together. Like a folder.  
+**Trees**: represent directory structure of your project at a specific point of time. Links blobs together. Like a folder.  
 - contains hashes of sub-trees and blobs, along with the parent.  
 
-**Blobs**: represents content of individual files. Each version of a file stored as a blob.  
-- doesn't store metadata, just the content. Name corresponds to their SHA-1 hash.  
-
-- Chunks of data with associated ID/hash
-- `git show HASH` Show blob corresponding to hash.  
-- `git hash-object FILE` Shows hash corresponding to file.
-
-**Commits/Snapshots**: represents snapshot of project's history. Contains a pointer of a tree, info about author and commit message. Pointers to parent commits. (Forms commit history graph, the DAG).  
+**Commits/Snapshots**: represents snapshot of project's history. 
+- Contains: (1) pointer to a tree, (2) info about author and commit message, (3) pointers to parent commits. (Forms commit history graph, the DAG).  
 - Git saves space by using pointers -> if nothing changes don't have to store anything new.  
 - Each object has a unique Hash 
 
-Checksums: SHA-1 Hashing -> hexadecimal hash based on contents of a file.  
+	~COMMIT EXAMPLE~
+	tree e4f5g6h7...
+	author John Doe <john.doe@example.com> 1678886400 +0000
+	committer John Doe <john.doe@example.com> 1678886400 +0000
+	parent abcdbsh34...
+	message some commit message
 
-Git sometimes packs several objects into a single binary (packfile)
-- Automatically happens when: loose objects, pushing to remote surver, running `git gc`
+> The graph of commits, the commit history graph, forms a DAG (Directed Acyclic Graph).  
+> Commits are directionally related and don't form a directional closed loop.  
+
+**packfiles** Git sometimes packs several objects into a single binary.  
+- Automatically happens when: loose objects, pushing to remote surver, running `git gc`  
+
 
 ### Internals  
 
-**HEAD:** Points to current index: current commit and branch.  
+**HEAD:** A symbolic name (link) to the currently checked out commit (current index).  
+- Always points to most recent commit.  
+- Usually points a branch name.  
+- Detaching HEAD -> attach the head to a commit instead of a branch.  
 
-**config:** File that contains config information.  
+**config:** Contains repo-specific config information.  
 
-**refs/:** A folder that contains: heads, remotes, tags.  
+**refs/:** Contains all reference pointers to commits: heads, remotes, tags, branches.  
 - heads: Folder that contains, for every branch, where the head is. Stored as SHA-1 hashes.  
 - remotes: Folder containing remote repositories.  
 - tags: tags are tied to a commit.  
+- There also exists a packed version of refs/ called packed-refs.  
 
 **hooks/:** For automation. Can create scripts that run whenever a commit, merge, patch, etc... occurs.  
 
 **objects/:** Where the bulk of stuff is stored! Holds all object files.  
-- includes: commits, trees, files (blobs).  
-- Stored in folders corresponding to the first 2 digits of a given object's hash.  
+- Files are stored in subdirectories for performance -> 256 subdirectories indexed from 00 to ff.  
+- Objects include: commits, trees, blobs (files).  
+- An object is stored in the subdirectory corresponding to the first 2 characters of their hash.  
 - Use `git cat-file -p HASH` to see the internals of an object file.  
 
+> a SHA-1 hash `a1b2c3d4...` would be stored in `.git/objectws/a1` with filename `b2c3d4...`  
 
-## Using Git  
+#### Relative References  
+
+Can specify commits with a relative reference instead of with hash number.  
+- `^` One commit up. Defaults to the first parent of the commit.  
+- `^n` One commit up to the nth parent.  
+- `~n` Move n commits up the tree.  
+
+## Git Commands  
 
 `git help <command>` Get help on a Git command.  
 
-### Changing Local  
+### Local Changes  
+
+#### Local Repository Manipulation
 
 **`git init`** Creates new repository tracking the current directory.  
 - creates a `.git` directory to track the current directory.  
@@ -144,10 +167,7 @@ Git sometimes packs several objects into a single binary (packfile)
 - `--cached` Untrack without removing from working tree.  
 
 **`git checkout BRANCH`**  Switch working tree to a branch.  
-- 
-
-**`git restore`** 
-- `--staged` 
+- `--track REMOTE` Checkout a new branch that tracks a remote branch. Make sure to specify the remote repository, ie `origin/branch-name`.  
 
 **`git tag "PATTERN"`** Tag points in repo history (ie. release points, etc.). Pattern is optional.  
 - `-l` optional list flag.  
@@ -158,25 +178,49 @@ Git sometimes packs several objects into a single binary (packfile)
 
 **`git format-patch COMMIT`** Create patch files
 
-### Display Info  
+#### Commits
 
-**`git cat-file HASH` Show information about an object file.  
-- `-p` Pretty print. Prints...  
-  - The tree's hash: the 
-  - The parent's hash: the parent of the current node (current commit).  
-- `-t` Shows type of the object file. (commit, tree, file)  
+**`git merge BRANCH`** Combine changes from BRANCH into current branch in a merge commit.  
+- This commit has two parent commits, the two branches. Preserves history of both branches.  
+- `-m "MESSAGE"` Include a message.  
+- `--continue` Continue merge after resolving merge conflicts.  
 
+**`git rebase BRANCH`** Also combines two branches like merge, but moves commits in current branch to the end of BRANCH.  
+- Result: as if the changes in the current branch happened after the most recent commit in BRANCH. A linear history.  
+- `-i` Interactive rebase. Review and edit commits during a rebase.  
+  - Can reorder commits, `squash` (combine) commits, `edit` commit messages, `pick` specific commits.  
+
+**`git restore FILE`** 
+- `--staged` removes file from staging area, but keeps the changes in working directory.  
+
+**`git reset COMMIT`** Reset to a previous commit.  
+- Doesn't work in remote branches.  
+- `--soft` Resets current branch to COMMIT, preserving changes in working directory and staging area.  
+- `--hard` Rests working directory, staging area, and current branch to COMMIT. All changes since COMMIT are discarded.  
+
+**`git revert`** Instead of removing a commit, appends a revised commit to the end.  d
+
+**`git stash`** Temporarily save changes in working director and staging area to a "stash".  
+- Used so you can work on something else or pull changes without conflicts.  
+- Pushes changes to a stack-like structure, restoring a clean working directory.  
+- `push -m FILE` Specify what to stash, with an optional description.  
+- `pop` Applies changes from most recent stash to working directory, removing it from the stash.  
+- `apply stash@{n}` Same as pop, but doesn't remove the stash from the stack. Specify the particular stash with `n`.  
+- `list` Shows all stashes.  
+	
+**`git cherr-pick COMMIT1 COMMIT2`** Copy a commit to end of current branch (append after current head).  
+
+### Displaying Info  
 
 **`git status`** Status of changes: untracked, modified, staged.  
 - `-s` or `--short` Simplified output.  
 
 **`git branch`** shows branches being worked on locally.  
-- `-D` Delete a branch.  
-- `-M` Rename a branch.  
+- `-d` Delete a branch.  
+- `-m OLD NEW` Rename a branch.  
+- `-a` List branches.  
+- `-vv` List verbose info about local branches, including the remote repo each one tracks.  
 
-**`git diff COMMIT..COMMIT`** Shows added and removed lines. By default only shows changes that are unstaged.  
-- `--staged` or `--cached` See staged changes. Compares to last commit.  
-- no arguments -> see changes since last commit (see unstaged changes).  
 
 **`git log`** Lists commits made in repository in reverse chronological order.  
 - `-p` or `--patch` shows difference introduced in each commit.  
@@ -186,12 +230,21 @@ Git sometimes packs several objects into a single binary (packfile)
 - `--graph` Ascii graph showing branch and merge history.  
 - `--since` for commits after specified date, or `--until` for commits before specified date.  
 
-`git cat-file -p HASH` Use on a commit hash. idk what it does.  
+**`git diff`** Compares changes between commits, branches, working directory, staging area.  
+- By default compares working directory with staged area.  
+- `--staged` or `--cached` Compares staged changes to last commit.  
+- `COMMIT..COMMIT` Compare two commits.  
+- `BRANCH..BRANCH` Compare two branches.  
+- `--text` Display as plain text.  
+
+**`git cat-file HASH`** Show information about an object file.  
+- `-p` Pretty print content. Automatically figures out the content type.  
+- `-t` Display type of the object file. (commit, tree, file)  
 
 **`git reflog`** Log of all git changes that have happened in the repository. Useful if you ever do anything crazy or anything goes wrong.  
 - can reset to a previous state (`git reset --hard HASH`).  
 
-### Work with Remote  
+### Working with Remotes  
 
 **`git clone URL`** Creates local copy of remote project. Includes files, history, backups.  
 - Creates a directory and initializes it.  
@@ -203,19 +256,38 @@ Git sometimes packs several objects into a single binary (packfile)
 - `rename OLD NEW` Rename a remote's shortname.  
 
 **`git fetch REMOTE`** Pulls all changes from remote repo to local, without merging it with local repo.  
-
-**`git merge`** merge branches.  
-- `--squash` Creates a single commit for idk?  
-- `--continue` Continue merge after resolving merge conflicts.  
-
-
-**`git rebase`** 
+- `--all`
+- `--prune` Remove remote-tracking references in local repository that no longer exist in remote repo.
 
 **`git pull`** Automatically fetch from remote and merge with current branch.  
 
-**`git push REMOTE BRANCH`** Push branch to remote server. Only works if you are up to date with updates to remote.  
+**`git push REMOTE_REPO`** Push the current branch to the remote branch it tracks in REMOTE_REPO. Only works if you are up to date with updates in remote.  
 - can push a tagname as well, or use `--tags` option to transfer all tags.  
+- `-u` or `--set-upstream` Establish a tracking relationship between a local and remote branch.  
+- `-d` or `:REMOTE` Delete branch REMOTE from the remote repository.  
 
+**Pull Requests**: Often will create rules where you can't push directly to remote main. Instead, push to a feature branch and create pull request to merge that branch with main.  
+
+### Plumbing Commands  
+
+
+
+### Debugging  
+
+From lecture notes:  
+
+> Scenario...  
+> 1. You've discovered a bug in your project, bu the project worked correctly two weeks ago.  
+> 3. Run `git bisect start`.  
+> 4. Mark the current commit (where the bug is present) as bad: `git bisect bad`.  
+> 5. Find a commit from two weeks ago using `git log` and mark it as good: `git bisect good <commit_hash>`.  
+> 6. Git checks out a commit between those two points. Test for the bug.  
+> - If the bug is present, run `git bisect bad`.  
+> - Otherwise, run `git bisect good`.  
+> 7. Repeat until Git identifies first bad commit.  
+> Run `git bisect reset` to go back to original state.  
+> `git bisect run` automates bisecting process by running a script or command.  
+> `git bisect skip` Skip a commit if you can't test it or if test in inconclusive.  
 
 #### Config  
 

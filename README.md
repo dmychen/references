@@ -1,3 +1,3 @@
 # References!
 
-Organize my CS related notes. Mostly stuff from 35L right now.
+WOO CS35L and other stuff

@@ -186,3 +186,60 @@ The term tech stack refers to the collection of languages and frameworks we use 
 
 We've been using React + Node + Express + MySQL.  
 
+
+## App Deployment
+
+How can we make our web apps accessible on the internet. Building, testing, and deploying to the cloud.
+
+**CI/CD**: Continuous integration and deployment.  
+
+How do we turn code into a live application? 
+
+> Application Code ->   
+> Source (Git) -> Build ->  
+> Test (Unit test/integration test) ->   
+> Deploy (staging, QA, production)  
+
+### Enterprise CI/CD
+
+Cloud infrastructure -> Allows us to deploy our applications  
+- Microsoft Azure, AWS, Google Cloud  
+- Used by companies to host frontend, backend, database, etc...  
+
+> Containerization: Kubernetes, Openshift, Docker.  
+
+### Github pages
+
+Allows free deployment for static websites (ie React apps)  
+- Automatic deployment through Github.  
+- Only for frontend stuff.  
+- Backend deployment must be done with another service.  
+  - use Heroku or some other cloud infrastructure service.  
+  
+
+## Project Management  
+
+Organization of work. Very common to use agile project management, where we work in sprints.  
+
+### The Agile Workflow  
+
+**Sprints**: organize tasks based on sprints, which last a few weeks.  
+- Sprint planning at the beginning of the sprint.  
+- Sprint review at the end of each sprint.  
+- Sprint retrospective.  
+
+**Daily scrums**: standup meetings.  
+
+> Product backlog ->  
+> Sprint backlog ->  
+> Sprint (planning - implementation - review (+ daily scrums) - retrospective) ->  
+> Completed Project.  
+
+**Scrumboard**: a taskboard.  
+- Each member assigned tasks for different projects or separate features on the same project.  
+- tasks to complete are often called issues or stories.  
+
+
+
+
+
