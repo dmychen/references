@@ -72,4 +72,11 @@ Debugging tools help us step through code, traceback calls, find values of param
 - `list` List nearby lines.  
 - `info` List info about a particular thing.  
 
+- `attach pid` attach gdb to current running process, to debug something in production or running.  
+- `backtrace` Show all the frames in the stack, one frame per line.  
+- `watch` create a watchpoint: stops if object under watch changes.  
+- `catch` create a catchpoint: stops for certain program events, (throws, exceptions, syscalls, etc...)  
+
+- can debug a program on a target machine from a host machine: run program on target machine as `gdbserver :PORT_NUM ./buggy_program` and target it from host gdb with `target remote targethost:PORT_NUM`  
+
 

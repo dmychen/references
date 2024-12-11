@@ -215,6 +215,77 @@ Another note.
 
 `$$` Current processor ID
 
+A bash script is named `name.sh`. Run with `bash name.sh`.  
+First line should be: `#!/bin/bash`. A shebang that specifies the interpreter.  
+
+**Variables**  
+
+`NAME=value` No spaces around the equals.  
+`${NAME}` Accesses the variable.  
+
+**Arguments**  
+`$n` Refers to the nth parameter of the script.  
+- ie: `$0` refers to name of script.  
+`$#` Number of arguments  
+`$$` Process ID.  
+`$?` Check exit status of last executed command.  
+
+**Strings**  
+if `name="John"`  
+`echo "Hi $name"` Prints "Hi John".  
+`echo 'Hi $name'` Prints "Hi $name".  
+
+**Functions**  
+
+`func_name () { ... }` Declare a function.  
+`func_name` Calls the function. Don't need `()` if no params.  
+
+**Conditionals**  
+
+
+`if [[condition]]; then ...` If condition is true, evaluate then.  
+`elif [[condition]]; then ...` Otherwise evaluate the elif.  
+`fi` Marks end of conditional.  
+- `[[NUM cond NUM]]` Compare integers. `-eq`, `-ne`, `-lt`, `-gt`, `ge`.  
+- `[[cond STR]]` Check single string. `-z` empty string, `-n` not empty string.  
+- `[[STR cond STR]]` Compare two strings. `==`, `<`, `>`, `!=`, `=~` (second string used as regex).  
+- `&&`, `||`, `-a`, or `-o` for logical and and or.  
+- Note: use the symbols to compare string, and the other for numbers. (!= vs -ne).  
+
+**Loops**  
+
+`for variable in list; do ... done`  
+`for ((i = 0; i < 10; i++)); do ... done`  
+`while [ condition ]; do ... done`  
+
+**IO**  
+
+`read variable_name`  
+
+**Command Substitution**  
+
+`result=$(command)` Stores commands output in result.  
+
+	files_count=$(ls | wc -l)
+	echo "There are $files_count files in the directory."
+	
+**Forking**  
+
+Appending `&` to a command makes it run in the background.
+
+**Command Evaluation**  
+
+1. `[ condition ]` Runs the test command. All POSIX shells have it builtin. The test command sets an exit code and the if statement acts accordingly. Typical tests are whether a file exists or one number is equal to another.  
+
+2. `[[ condition ]]` Upgraded variation on test. Sets an exit code and the if statement acts accordingly. It can test whether a string matches a wildcard pattern.  
+
+3. `((condition))` This performs arithmetic. As the result of the arithmetic, an exit code is set, and the if statement acts accordingly. 
+- Returns an exit code of zero (true) if the result is nonzero.  
+
+4. `(command)` This runs command in a subshell. When command completes, it sets an exit code and the if statement acts accordingly.  
+
+5. `$((...))` Does arithmetic expression evaluation. Can perform arithmetic operations such as addition, subtraction, multiplication, etc.  
+
 
 ### Redirection   
 

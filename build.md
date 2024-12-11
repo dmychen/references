@@ -22,8 +22,10 @@ Debugging:
 - `-Werror` Treat all warnings as errors.  
 
 - `-O` optimize level. 0, 1, 2, 3.  
+- `-Os` optimize for size over performance.  
+- `-Og` optimize for debugging experience
 
-- `-g` Enable debugging information you can  see in GDB: 1, 2, 3, `-Og` to optimize debugging experience.  
+- `-g` Enable debugging information you can  see in GDB: 1, 2, 3.
 
 Other: 
 
@@ -81,6 +83,8 @@ determined
 ■ -fmerge-constants # Attempt to merge identical constants
 ■ -fmerge-all-constants # Attempt to merge all constants
 ■ -fno-common # Do not put uninitialized globals in common block
+
+■ -march=native enable hardware intrinsics that perform better than their software counterparts. 
 
 ### Debugging and Diagnostics
 #### Debug Information

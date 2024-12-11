@@ -1,9 +1,10 @@
 # C  
 
 Core Language Philosophy:  
-- Procedural -> focused on functions and data separately, not object-oriented.  
-- Simplicity -> close to hardware, with fewer abstractions.  
-- Manual Memory Management -> no automatic cleanup mechanisms.  
+
+1) Procedural -> focused on functions and data separately, not object-oriented.  
+2) Simplicity -> close to hardware, with fewer abstractions.  
+3) Manual Memory Management -> no automatic cleanup mechanisms.  
 
 ### Differences with C++
 
@@ -24,25 +25,12 @@ We use libraries for basic functions: `stdio.h` for `printf`.
 
 ### I/O
 
-**Format specifiers**
-
-`%d` Integer  
-`%.2f` Float with 2 decimals  
-`%s` String  
-`%c` Character  
-`%p` Pointer  
-
-    int num;
-	char str[100];
-	float fnum;
-
-	scanf("%d", &num);     // Read integer
-	scanf("%s", str);      // Read string (no & needed for arrays)
-	scanf("%f", &fnum);    // Read float
-	scanf("%[^\n]s", str); // Read entire line including spaces
-	fgets(str, sizeof(str), stdin); // Safer string input
+`scanf("<specifier>", &var)` read input.  
+`fgets(str, sizeof(str), stdin)` Safer input, with buffer limit.  
+`read(int fd, void *buf, size_t count)` Read directly from a file, storing count bytes into buf. `fd = 0` is stdin.  
+`write(int fd, const void *buf, size_t count)` Write count bytes from buf into a file fd. 
 	
-#### Strings
+### Strings
 
 `sizeof(str)` Total allocated memory for the string.  
 `strlen(str)` Get length.  
@@ -65,6 +53,24 @@ We use libraries for basic functions: `stdio.h` for `printf`.
 		printf("%s\n", token);
 		token = strtok(NULL, " ,");
 	}
+
+**Format specifiers**
+
+`%d` Integer  
+`%.2f` Float with 2 decimals  
+`%s` String  
+`%c` Character  
+`%p` Pointer  
+
+    int num;
+	char str[100];
+	float fnum;
+
+	scanf("%d", &num);     // Read integer
+	scanf("%s", str);      // Read string (no & needed for arrays)
+	scanf("%f", &fnum);    // Read float
+	scanf("%[^\n]s", str); // Read entire line including spaces
+	fgets(str, sizeof(str), stdin); // Safer string input
 
 #### Structs
  
@@ -207,7 +213,7 @@ Block selection: different algorithms can be used to choose which free block to 
 - `sbrk()` and `brk()` are traditional UNIX system calls for managing program break.  
 - modern systems use `mmap()` for large memory allocations.  
 
-	void* sbrk(intptr_t increment); // increments sizeo f program break by increment.  
+	void* sbrk(intptr_t increment); // increments size of program break by increment.  
 	int brk(void* addr); // set program break to the specified location.  
 	
 	void* simple_malloc(size_t size) {
@@ -222,3 +228,61 @@ Block selection: different algorithms can be used to choose which free block to 
 		return block;
 	}
 	
+
+## Defensive Programming
+
+Anticipating and handling potential errors before they occur.  
+
+Principles:  
+
+1) **Never trust input** -> always validate outside data.  
+
+2) **Boundary condition analysis** -> always check array bounds and buffer limits.  
+
+3) **Error handling**  
+- use assertions during development.  
+- log errors and appropriate return values.  
+
+4) **Memory safetly**  
+- check that memory is allocated successfully before using it.  
+- always free memory after use.  
+
+5) **Contract programming**  
+- check for pre and post conditions: the conditions incoming data must satisfy and form of output.  
+
+6) **Logging and Tracing**  
+- Log the level, file/line, time, and error string.  
+- output to stderr and/or to a log file.  
+- Trace entering and exiting a function, logging the start/end/duration time.
+
+7) **Checkpoint and Recovery**  
+- store checkpoints with a sequence number, a state of the application, and a timestamp.  
+- create a checkpoint: write to stable storage a new checkpoint in sequence, containing the current state and metadata.  
+- restore the latest valid checkpoint from stable storage.  
+
+8) **Barricades**  
+- implement security at trust boundaries:  
+  - validate any data crossing the boundary.  
+  - use type-safe interfaces.  
+  - implement error handling.  
+- validate by sanitizing strings, validating numeric ranges, defining allowed character sets, or in specific cases escaping SQL input, etc...  
+- System-wide barricades:  
+  - guard data packets with network data barricades.  
+  - validate safe paths for files, checking for directory traversal (..), absolute paths, sanitizing allowed characters.  
+  
+9) **Safe Interpreter**  
+- limit available operations.  
+- implement resource quotas.  
+- validate input before execution.  
+- use strong typing.  
+
+10) **Virtual Machines**  
+- allow for safe execution:  
+  - isolate execution environment.  
+  - implement resource limits.  
+  - system call filtering.  
+  - monitor execution time.  
+  - implement memory protection.  
+- initialize with security constraints -> execute code in isolated environment (set up environment, start timer, check time limit and resource limits -> handle success and errors.  
+
+

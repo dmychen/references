@@ -1,7 +1,5 @@
 # **Git and Version Control**  
 
-// research about packing  
-
 ## Version Control  
 
 What is version control? Version control deals with managing changes in files over time. It keeps tracks of drafts, revisions, and edits we make.  
